@@ -58,15 +58,15 @@ ${ingredientsList}
 AVAILABLE KITCHEN TOOLS:
 ${toolsList || 'Basic kitchen tools (knife, cutting board, stove, oven, basic cookware)'}
 
-Please suggest 2-3 practical recipes I can make with these ingredients and tools. For each recipe, provide:
+Please suggest at least 2 practical recipes I can make with these ingredients and tools. We do not need to use all of them! For each recipe, provide:
 
 1. Recipe name
 2. Brief description (1-2 sentences)
 3. Estimated cooking time
 4. Difficulty level (Easy/Medium/Hard)
 5. Complete list of ingredients needed (highlight any missing ingredients)
-6. Step-by-step cooking instructions (numbered)
-7. Any tips or variations
+6. Step-by-step cooking instructions (numbered, and should be practical and easy to follow, each step description should be concise)
+7. Any tips for variations and safety
 
 Format your response as JSON with this structure:
 {
