@@ -15,6 +15,10 @@ function App() {
     apiKey: ''
   })
   const [showApiConfig, setShowApiConfig] = useState(false)
+  const [conversionFromValue, setConversionFromValue] = useState('')
+  const [conversionFromUnit, setConversionFromUnit] = useState('')
+  const [conversionToValue, setConversionToValue] = useState('')
+  const [conversionToUnit, setConversionToUnit] = useState('')
 
   // Enhanced API call to OpenAI
   // Enhanced API call to OpenAI
@@ -91,7 +95,7 @@ Focus on recipes that use most of the available ingredients and are practical to
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!ingredients.trim()) return
-
+    
     setIsLoading(true)
     setError('')
     setCurrentView('loading')
@@ -118,7 +122,7 @@ Focus on recipes that use most of the available ingredients and are practical to
 
       if (parsedRecipes && parsedRecipes.recipes && Array.isArray(parsedRecipes.recipes)) {
         setRecipes(parsedRecipes.recipes)
-        setCurrentView('recipes')
+    setCurrentView('recipes')
       } else {
         throw new Error('No recipes found in the response')
       }
@@ -178,6 +182,54 @@ Focus on recipes that use most of the available ingredients and are practical to
     }
   }
 
+  const performConversion = () => {
+    if (!conversionFromValue || !conversionFromUnit || !conversionToUnit) {
+      return;
+    }
+
+    const fromValue = parseFloat(conversionFromValue);
+    let result = 0;
+
+    // Volume conversions (all to ml first, then to target)
+    const volumeToMl = {
+      cup: 240,
+      tbsp: 15,
+      tsp: 5,
+      ml: 1,
+      floz: 29.5735,
+      pint: 473.176,
+      quart: 946.353,
+      gallon: 3785.41
+    };
+
+    // Weight conversions (all to grams first, then to target)
+    const weightToG = {
+      oz: 28.3495,
+      lb: 453.592,
+      g: 1,
+      kg: 1000
+    };
+
+    // Temperature conversions
+    if (conversionFromUnit === 'f' && conversionToUnit === 'c') {
+      result = (fromValue - 32) * 5/9;
+    } else if (conversionFromUnit === 'c' && conversionToUnit === 'f') {
+      result = (fromValue * 9/5) + 32;
+    }
+    // Volume conversions
+    else if (volumeToMl[conversionFromUnit] && volumeToMl[conversionToUnit]) {
+      const mlValue = fromValue * volumeToMl[conversionFromUnit];
+      result = mlValue / volumeToMl[conversionToUnit];
+    }
+    // Weight conversions
+    else if (weightToG[conversionFromUnit] && weightToG[conversionToUnit]) {
+      const gValue = fromValue * weightToG[conversionFromUnit];
+      result = gValue / weightToG[conversionToUnit];
+    }
+
+    setConversionToValue(result.toFixed(2));
+  };
+
   return (
     <div className="min-h-screen app-container">
       <div className="animated-background"></div>
@@ -187,7 +239,7 @@ Focus on recipes that use most of the available ingredients and are practical to
         <div className="hero-section">
           <h1 className="hero-title">
             AI CULINARY CHEF
-          </h1>
+        </h1>
           <h2 className="hero-subtitle">
             Powered by OpenAI
           </h2>
@@ -238,10 +290,124 @@ Focus on recipes that use most of the available ingredients and are practical to
           </div>
         )}
         
-        {/* Main Content with Safety Table */}
+        {/* Main Content with Tables */}
         <div className="flex gap-8 mt-8">
-          {/* Left Side - Main Content */}
-          <div className="flex-1">
+          {/* Left Side - Measurement Conversions */}
+          <div className="flex-1 even-height-panel">
+            <div className="conversion-table-container">
+              <h3 className="conversion-table-title">
+                📏 Measurement Converter
+              </h3>
+              <p className="conversion-table-subtitle">
+                Convert between cooking units
+              </p>
+              
+              <div className="conversion-tool">
+                <div className="conversion-input-group">
+                  <label className="conversion-label">From:</label>
+                  <div className="conversion-row">
+                    <input
+                      type="number"
+                      className="conversion-input"
+                      placeholder="0"
+                      value={conversionFromValue}
+                      onChange={(e) => setConversionFromValue(e.target.value)}
+                    />
+                    <select
+                      className="conversion-select"
+                      value={conversionFromUnit}
+                      onChange={(e) => setConversionFromUnit(e.target.value)}
+                    >
+                      <option value="">Select unit</option>
+                      <optgroup label="Volume">
+                        <option value="cup">Cup</option>
+                        <option value="tbsp">Tablespoon</option>
+                        <option value="tsp">Teaspoon</option>
+                        <option value="ml">Milliliter (ml)</option>
+                        <option value="floz">Fluid Ounce</option>
+                        <option value="pint">Pint</option>
+                        <option value="quart">Quart</option>
+                        <option value="gallon">Gallon</option>
+                      </optgroup>
+                      <optgroup label="Weight">
+                        <option value="oz">Ounce (oz)</option>
+                        <option value="lb">Pound (lb)</option>
+                        <option value="g">Gram (g)</option>
+                        <option value="kg">Kilogram (kg)</option>
+                      </optgroup>
+                      <optgroup label="Temperature">
+                        <option value="f">Fahrenheit (°F)</option>
+                        <option value="c">Celsius (°C)</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="conversion-arrow">↓</div>
+
+                <div className="conversion-input-group">
+                  <label className="conversion-label">To:</label>
+                  <div className="conversion-row">
+                    <input
+                      type="number"
+                      className="conversion-input"
+                      placeholder="0"
+                      value={conversionToValue}
+                      readOnly
+                    />
+                    <select
+                      className="conversion-select"
+                      value={conversionToUnit}
+                      onChange={(e) => setConversionToUnit(e.target.value)}
+                    >
+                      <option value="">Select unit</option>
+                      <optgroup label="Volume">
+                        <option value="cup">Cup</option>
+                        <option value="tbsp">Tablespoon</option>
+                        <option value="tsp">Teaspoon</option>
+                        <option value="ml">Milliliter (ml)</option>
+                        <option value="floz">Fluid Ounce</option>
+                        <option value="pint">Pint</option>
+                        <option value="quart">Quart</option>
+                        <option value="gallon">Gallon</option>
+                      </optgroup>
+                      <optgroup label="Weight">
+                        <option value="oz">Ounce (oz)</option>
+                        <option value="lb">Pound (lb)</option>
+                        <option value="g">Gram (g)</option>
+                        <option value="kg">Kilogram (kg)</option>
+                      </optgroup>
+                      <optgroup label="Temperature">
+                        <option value="f">Fahrenheit (°F)</option>
+                        <option value="c">Celsius (°C)</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+
+                <button
+                  className="conversion-button"
+                  onClick={performConversion}
+                  disabled={!conversionFromValue || !conversionFromUnit || !conversionToUnit}
+                >
+                  Convert
+                </button>
+              </div>
+              
+              <div className="conversion-tips">
+                <h4 className="conversion-tips-title">💡 Quick Tips:</h4>
+                <ul className="conversion-tips-list">
+                  <li>1 cup = 16 tablespoons</li>
+                  <li>1 tablespoon = 3 teaspoons</li>
+                  <li>1 stick butter = 1/2 cup</li>
+                  <li>1 large egg = ~50g</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Center - Main Content */}
+          <div className="flex-1 even-height-panel">
             {/* Input Form */}
             {currentView === 'input' && (
               <div className="max-w-2xl mx-auto">
@@ -254,9 +420,9 @@ Focus on recipes that use most of the available ingredients and are practical to
                     {error && (
                       <div className="error-message">
                         <strong>Error:</strong> {error}
-                      </div>
-                    )}
-                    
+          </div>
+        )}
+
                     <div className="space-y-8">
                       <div className="input-container">
                         <label className="input-label">
@@ -324,38 +490,38 @@ Focus on recipes that use most of the available ingredients and are practical to
             )}
 
             {/* Recipe Results */}
-            {currentView === 'recipes' && (
+        {currentView === 'recipes' && (
               <div className="max-w-7xl mx-auto">
-                <button
-                  onClick={goBack}
+            <button
+              onClick={goBack}
                   className="back-button mb-12"
-                >
+            >
                   ← Try Different Ingredients
-                </button>
-                
+            </button>
+            
                 <h2 className="section-title">
                   🍳 AI-Generated Recipes for You
-                </h2>
-                
-                {recipes.length === 0 ? (
+            </h2>
+            
+            {recipes.length === 0 ? (
                   <div className="no-results">
                     <div className="text-6xl mb-4">🔍</div>
                     <p className="text-xl text-slate-500">
-                      No recipes found. Try adding more ingredients!
+                No recipes found. Try adding more ingredients!
                     </p>
-                  </div>
-                ) : (
+              </div>
+            ) : (
                   <div className="recipe-grid">
-                    {recipes.map((recipe) => (
-                      <div
-                        key={recipe.id}
+                {recipes.map((recipe) => (
+                  <div
+                    key={recipe.id}
                         className="recipe-card enhanced-recipe-card"
-                        onClick={() => selectRecipe(recipe)}
-                      >
+                    onClick={() => selectRecipe(recipe)}
+                  >
                         <div className="recipe-icon">👨‍🍳</div>
                         <h3 className="recipe-name">
-                          {recipe.name}
-                        </h3>
+                      {recipe.name}
+                    </h3>
                         
                         <p className="recipe-description">
                           {recipe.description}
@@ -391,23 +557,23 @@ Focus on recipes that use most of the available ingredients and are practical to
                         <div className="recipe-overlay">
                           <span className="start-cooking">Start Cooking →</span>
                         </div>
-                      </div>
-                    ))}
                   </div>
-                )}
+                ))}
               </div>
             )}
+          </div>
+        )}
 
             {/* Recipe Walkthrough */}
-            {currentView === 'walkthrough' && selectedRecipe && (
+        {currentView === 'walkthrough' && selectedRecipe && (
               <div className="max-w-5xl mx-auto">
-                <button
-                  onClick={goBack}
+            <button
+              onClick={goBack}
                   className="back-button mb-12"
-                >
-                  ← Back to Recipes
-                </button>
-                
+            >
+              ← Back to Recipes
+            </button>
+            
                 <div className="walkthrough-container">
                   <div className="walkthrough-header">
                     <h2 className="walkthrough-title">{selectedRecipe.name}</h2>
@@ -416,13 +582,13 @@ Focus on recipes that use most of the available ingredients and are practical to
                       <span>⏱️ {selectedRecipe.cookingTime}</span>
                       <span>{getDifficultyEmoji(selectedRecipe.difficulty)} {selectedRecipe.difficulty}</span>
                     </div>
-                  </div>
-                  
+              </div>
+              
                   <div className="walkthrough-content">
                     <div className="chef-icon">👨‍🍳</div>
                     <p className="current-step">
-                      {selectedRecipe.steps[currentStep]}
-                    </p>
+                  {selectedRecipe.steps[currentStep]}
+                </p>
                     
                     {selectedRecipe.tips && currentStep === selectedRecipe.steps.length - 1 && (
                       <div className="chef-tips">
@@ -430,42 +596,42 @@ Focus on recipes that use most of the available ingredients and are practical to
                         <p className="chef-tips-content">{selectedRecipe.tips}</p>
                       </div>
                     )}
-                  </div>
-                  
-                  <div className="walkthrough-controls">
-                    <button
-                      onClick={prevStep}
-                      disabled={currentStep === 0}
-                      className="control-button"
-                    >
-                      ← Previous
-                    </button>
-                    
-                    <div className="step-indicators">
-                      {selectedRecipe.steps.map((_, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setCurrentStep(index)}
-                          className={`step-dot ${index === currentStep ? 'active' : ''}`}
-                        />
-                      ))}
-                    </div>
-                    
-                    <button
-                      onClick={nextStep}
-                      disabled={currentStep === selectedRecipe.steps.length - 1}
-                      className="control-button"
-                    >
-                      {currentStep === selectedRecipe.steps.length - 1 ? '✓ Complete' : 'Next →'}
-                    </button>
-                  </div>
-                </div>
               </div>
-            )}
+              
+                  <div className="walkthrough-controls">
+                <button
+                  onClick={prevStep}
+                  disabled={currentStep === 0}
+                      className="control-button"
+                >
+                  ← Previous
+                </button>
+                
+                    <div className="step-indicators">
+                  {selectedRecipe.steps.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentStep(index)}
+                          className={`step-dot ${index === currentStep ? 'active' : ''}`}
+                    />
+                  ))}
+                </div>
+                
+                <button
+                  onClick={nextStep}
+                  disabled={currentStep === selectedRecipe.steps.length - 1}
+                      className="control-button"
+                >
+                      {currentStep === selectedRecipe.steps.length - 1 ? '✓ Complete' : 'Next →'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
           </div>
 
           {/* Right Side - Safety Table */}
-          <div className="w-80 flex-shrink-0">
+          <div className="flex-1 even-height-panel">
             <div className="safety-table-container">
               <h3 className="safety-table-title">
                 🌡️ Safe Cooking Temperatures
