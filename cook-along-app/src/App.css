@@ -780,3 +780,174 @@
     gap: 1rem;
   }
 }
+
+/* Safety Table Styles */
+.safety-table-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+.safety-table-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.safety-table-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.safety-table {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  background: white;
+}
+
+.safety-table-header {
+  display: flex;
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: white;
+  font-weight: 600;
+}
+
+.safety-table-row {
+  display: flex;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s ease;
+}
+
+.safety-table-row:hover {
+  background-color: #f8fafc;
+}
+
+.safety-table-row:last-child {
+  border-bottom: none;
+}
+
+.safety-table-cell {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+}
+
+.safety-table-cell.header {
+  font-weight: 600;
+  color: white;
+}
+
+.safety-table-cell.temp {
+  font-weight: 600;
+  color: #dc2626;
+  justify-content: center;
+}
+
+.safety-table-cell:first-child {
+  flex: 2;
+  border-right: 1px solid #f3f4f6;
+}
+
+.safety-table-cell:last-child {
+  flex: 1;
+  justify-content: center;
+}
+
+.safety-tips {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 12px;
+  border: 1px solid #f59e0b;
+}
+
+.safety-tips-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #92400e;
+  margin-bottom: 0.75rem;
+}
+
+.safety-tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.safety-tips-list li {
+  font-size: 0.875rem;
+  color: #92400e;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.safety-tips-list li::before {
+  content: "•";
+  color: #f59e0b;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.safety-tips-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design for Safety Table */
+@media (max-width: 1024px) {
+  .flex {
+    flex-direction: column;
+  }
+  
+  .w-80 {
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto 0 auto;
+  }
+  
+  .safety-table-container {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .safety-table-container {
+    padding: 1rem;
+  }
+  
+  .safety-table-title {
+    font-size: 1.125rem;
+  }
+  
+  .safety-table-cell {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .safety-tips {
+    padding: 0.75rem;
+  }
+  
+  .safety-tips-title {
+    font-size: 0.9rem;
+  }
+  
+  .safety-tips-list li {
+    font-size: 0.8rem;
+  }
+}

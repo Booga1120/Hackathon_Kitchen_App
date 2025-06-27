@@ -238,226 +238,301 @@ Focus on recipes that use most of the available ingredients and are practical to
           </div>
         )}
         
-        {/* Input Form */}
-        {currentView === 'input' && (
-          <div className="max-w-2xl mx-auto mt-16">
-            <div className="premium-card">
-              <div className="card-content">
-                <h3 className="card-title">
-                  What's Available in Your Kitchen?
-                </h3>
-                
-                {error && (
-                  <div className="error-message">
-                    <strong>Error:</strong> {error}
-                  </div>
-                )}
-                
-                <div className="space-y-8">
-                  <div className="input-container">
-                    <label className="input-label">
-                      Available Ingredients *
-                    </label>
-                    <textarea
-                      value={ingredients}
-                      onChange={(e) => setIngredients(e.target.value)}
-                      placeholder="Enter your ingredients separated by commas (e.g., chicken breast, broccoli, rice, garlic, olive oil, cheese)"
-                      className="premium-textarea"
-                      rows={4}
-                      required
-                    />
-                  </div>
-                  
-                  <div className="input-container">
-                    <label className="input-label">
-                      Available Kitchen Tools (optional)
-                    </label>
-                    <textarea
-                      value={availableTools}
-                      onChange={(e) => setAvailableTools(e.target.value)}
-                      placeholder="Enter your kitchen tools (e.g., oven, stovetop, air fryer, blender, food processor, grill)"
-                      className="premium-textarea"
-                      rows={3}
-                    />
-                    <p className="input-helper-text">
-                      Leave empty to assume basic kitchen tools (stove, oven, basic cookware)
-                    </p>
-                  </div>
-                  
-                  <button
-                    onClick={handleSubmit}
-                    disabled={!ingredients.trim() || isLoading}
-                    className="premium-button"
-                  >
-                    {isLoading ? '🤖 AI Chef is Thinking...' : '🚀 Generate AI Recipes'}
-                  </button>
-                </div>
-                
-                <p className="signup-offer">
-                  ✨ Powered by artificial intelligence for personalized recipe creation
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Loading State */}
-        {currentView === 'loading' && (
-          <div className="max-w-2xl mx-auto">
-            <div className="loading-container">
-              <div className="loading-icon">🤖</div>
-              <h3 className="loading-title">AI Chef is Working...</h3>
-              <p className="loading-description">
-                Analyzing your ingredients and generating personalized recipes
-              </p>
-              <div className="loading-dots">
-                <div className="loading-dot loading-dot-1"></div>
-                <div className="loading-dot loading-dot-2"></div>
-                <div className="loading-dot loading-dot-3"></div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Recipe Results */}
-        {currentView === 'recipes' && (
-          <div className="max-w-7xl mx-auto mt-12">
-            <button
-              onClick={goBack}
-              className="back-button mb-12"
-            >
-              ← Try Different Ingredients
-            </button>
-            
-            <h2 className="section-title">
-              🍳 AI-Generated Recipes for You
-            </h2>
-            
-            {recipes.length === 0 ? (
-              <div className="no-results">
-                <div className="text-6xl mb-4">🔍</div>
-                <p className="text-xl text-slate-500">
-                  No recipes found. Try adding more ingredients!
-                </p>
-              </div>
-            ) : (
-              <div className="recipe-grid">
-                {recipes.map((recipe) => (
-                  <div
-                    key={recipe.id}
-                    className="recipe-card enhanced-recipe-card"
-                    onClick={() => selectRecipe(recipe)}
-                  >
-                    <div className="recipe-icon">👨‍🍳</div>
-                    <h3 className="recipe-name">
-                      {recipe.name}
+        {/* Main Content with Safety Table */}
+        <div className="flex gap-8 mt-8">
+          {/* Left Side - Main Content */}
+          <div className="flex-1">
+            {/* Input Form */}
+            {currentView === 'input' && (
+              <div className="max-w-2xl mx-auto">
+                <div className="premium-card">
+                  <div className="card-content">
+                    <h3 className="card-title">
+                      What's Available in Your Kitchen?
                     </h3>
                     
-                    <p className="recipe-description">
-                      {recipe.description}
-                    </p>
-                    
-                    <div className="recipe-details">
-                      <div className="recipe-detail-item">
-                        <span className="recipe-detail-label">⏱️ Cooking Time:</span>
-                        <span className="recipe-detail-value">{recipe.cookingTime}</span>
-                      </div>
-                      
-                      <div className="recipe-detail-item">
-                        <span className="recipe-detail-label">📊 Difficulty:</span>
-                        <span className={`recipe-detail-value ${getDifficultyColor(recipe.difficulty)}`}>
-                          {getDifficultyEmoji(recipe.difficulty)} {recipe.difficulty}
-                        </span>
-                      </div>
-                      
-                      <div className="recipe-detail-item">
-                        <span className="recipe-detail-label">📝 Steps:</span>
-                        <span className="recipe-detail-value">{recipe.steps?.length || 0}</span>
-                      </div>
-                    </div>
-                    
-                    {recipe.missingIngredients && recipe.missingIngredients.length > 0 && (
-                      <div className="missing-ingredients">
-                        <p className="missing-ingredients-text">
-                          ⚠️ Missing: {recipe.missingIngredients.join(', ')}
-                        </p>
+                    {error && (
+                      <div className="error-message">
+                        <strong>Error:</strong> {error}
                       </div>
                     )}
                     
-                    <div className="recipe-overlay">
-                      <span className="start-cooking">Start Cooking →</span>
+                    <div className="space-y-8">
+                      <div className="input-container">
+                        <label className="input-label">
+                          Available Ingredients *
+                        </label>
+                        <textarea
+                          value={ingredients}
+                          onChange={(e) => setIngredients(e.target.value)}
+                          placeholder="Enter your ingredients separated by commas (e.g., chicken breast, broccoli, rice, garlic, olive oil, cheese)"
+                          className="premium-textarea"
+                          rows={4}
+                          required
+                        />
+                      </div>
+                      
+                      <div className="input-container">
+                        <label className="input-label">
+                          Available Kitchen Tools (optional)
+                        </label>
+                        <textarea
+                          value={availableTools}
+                          onChange={(e) => setAvailableTools(e.target.value)}
+                          placeholder="Enter your kitchen tools (e.g., oven, stovetop, air fryer, blender, food processor, grill)"
+                          className="premium-textarea"
+                          rows={3}
+                        />
+                        <p className="input-helper-text">
+                          Leave empty to assume basic kitchen tools (stove, oven, basic cookware)
+                        </p>
+                      </div>
+                      
+                      <button
+                        onClick={handleSubmit}
+                        disabled={!ingredients.trim() || isLoading}
+                        className="premium-button"
+                      >
+                        {isLoading ? '🤖 AI Chef is Thinking...' : '🚀 Generate AI Recipes'}
+                      </button>
                     </div>
+                    
+                    <p className="signup-offer">
+                      ✨ Powered by artificial intelligence for personalized recipe creation
+                    </p>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Recipe Walkthrough */}
-        {currentView === 'walkthrough' && selectedRecipe && (
-          <div className="max-w-5xl mx-auto mt-12">
-            <button
-              onClick={goBack}
-              className="back-button mb-12"
-            >
-              ← Back to Recipes
-            </button>
-            
-            <div className="walkthrough-container">
-              <div className="walkthrough-header">
-                <h2 className="walkthrough-title">{selectedRecipe.name}</h2>
-                <p className="walkthrough-progress">Step {currentStep + 1} of {selectedRecipe.steps.length}</p>
-                <div className="walkthrough-meta">
-                  <span>⏱️ {selectedRecipe.cookingTime}</span>
-                  <span>{getDifficultyEmoji(selectedRecipe.difficulty)} {selectedRecipe.difficulty}</span>
                 </div>
               </div>
-              
-              <div className="walkthrough-content">
-                <div className="chef-icon">👨‍🍳</div>
-                <p className="current-step">
-                  {selectedRecipe.steps[currentStep]}
-                </p>
+            )}
+
+            {/* Loading State */}
+            {currentView === 'loading' && (
+              <div className="max-w-2xl mx-auto">
+                <div className="loading-container">
+                  <div className="loading-icon">🤖</div>
+                  <h3 className="loading-title">AI Chef is Working...</h3>
+                  <p className="loading-description">
+                    Analyzing your ingredients and generating personalized recipes
+                  </p>
+                  <div className="loading-dots">
+                    <div className="loading-dot loading-dot-1"></div>
+                    <div className="loading-dot loading-dot-2"></div>
+                    <div className="loading-dot loading-dot-3"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Recipe Results */}
+            {currentView === 'recipes' && (
+              <div className="max-w-7xl mx-auto">
+                <button
+                  onClick={goBack}
+                  className="back-button mb-12"
+                >
+                  ← Try Different Ingredients
+                </button>
                 
-                {selectedRecipe.tips && currentStep === selectedRecipe.steps.length - 1 && (
-                  <div className="chef-tips">
-                    <h4 className="chef-tips-title">💡 Chef's Tips:</h4>
-                    <p className="chef-tips-content">{selectedRecipe.tips}</p>
+                <h2 className="section-title">
+                  🍳 AI-Generated Recipes for You
+                </h2>
+                
+                {recipes.length === 0 ? (
+                  <div className="no-results">
+                    <div className="text-6xl mb-4">🔍</div>
+                    <p className="text-xl text-slate-500">
+                      No recipes found. Try adding more ingredients!
+                    </p>
+                  </div>
+                ) : (
+                  <div className="recipe-grid">
+                    {recipes.map((recipe) => (
+                      <div
+                        key={recipe.id}
+                        className="recipe-card enhanced-recipe-card"
+                        onClick={() => selectRecipe(recipe)}
+                      >
+                        <div className="recipe-icon">👨‍🍳</div>
+                        <h3 className="recipe-name">
+                          {recipe.name}
+                        </h3>
+                        
+                        <p className="recipe-description">
+                          {recipe.description}
+                        </p>
+                        
+                        <div className="recipe-details">
+                          <div className="recipe-detail-item">
+                            <span className="recipe-detail-label">⏱️ Cooking Time:</span>
+                            <span className="recipe-detail-value">{recipe.cookingTime}</span>
+                          </div>
+                          
+                          <div className="recipe-detail-item">
+                            <span className="recipe-detail-label">📊 Difficulty:</span>
+                            <span className={`recipe-detail-value ${getDifficultyColor(recipe.difficulty)}`}>
+                              {getDifficultyEmoji(recipe.difficulty)} {recipe.difficulty}
+                            </span>
+                          </div>
+                          
+                          <div className="recipe-detail-item">
+                            <span className="recipe-detail-label">📝 Steps:</span>
+                            <span className="recipe-detail-value">{recipe.steps?.length || 0}</span>
+                          </div>
+                        </div>
+                        
+                        {recipe.missingIngredients && recipe.missingIngredients.length > 0 && (
+                          <div className="missing-ingredients">
+                            <p className="missing-ingredients-text">
+                              ⚠️ Missing: {recipe.missingIngredients.join(', ')}
+                            </p>
+                          </div>
+                        )}
+                        
+                        <div className="recipe-overlay">
+                          <span className="start-cooking">Start Cooking →</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
-              
-              <div className="walkthrough-controls">
+            )}
+
+            {/* Recipe Walkthrough */}
+            {currentView === 'walkthrough' && selectedRecipe && (
+              <div className="max-w-5xl mx-auto">
                 <button
-                  onClick={prevStep}
-                  disabled={currentStep === 0}
-                  className="control-button"
+                  onClick={goBack}
+                  className="back-button mb-12"
                 >
-                  ← Previous
+                  ← Back to Recipes
                 </button>
                 
-                <div className="step-indicators">
-                  {selectedRecipe.steps.map((_, index) => (
+                <div className="walkthrough-container">
+                  <div className="walkthrough-header">
+                    <h2 className="walkthrough-title">{selectedRecipe.name}</h2>
+                    <p className="walkthrough-progress">Step {currentStep + 1} of {selectedRecipe.steps.length}</p>
+                    <div className="walkthrough-meta">
+                      <span>⏱️ {selectedRecipe.cookingTime}</span>
+                      <span>{getDifficultyEmoji(selectedRecipe.difficulty)} {selectedRecipe.difficulty}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="walkthrough-content">
+                    <div className="chef-icon">👨‍🍳</div>
+                    <p className="current-step">
+                      {selectedRecipe.steps[currentStep]}
+                    </p>
+                    
+                    {selectedRecipe.tips && currentStep === selectedRecipe.steps.length - 1 && (
+                      <div className="chef-tips">
+                        <h4 className="chef-tips-title">💡 Chef's Tips:</h4>
+                        <p className="chef-tips-content">{selectedRecipe.tips}</p>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="walkthrough-controls">
                     <button
-                      key={index}
-                      onClick={() => setCurrentStep(index)}
-                      className={`step-dot ${index === currentStep ? 'active' : ''}`}
-                    />
-                  ))}
+                      onClick={prevStep}
+                      disabled={currentStep === 0}
+                      className="control-button"
+                    >
+                      ← Previous
+                    </button>
+                    
+                    <div className="step-indicators">
+                      {selectedRecipe.steps.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentStep(index)}
+                          className={`step-dot ${index === currentStep ? 'active' : ''}`}
+                        />
+                      ))}
+                    </div>
+                    
+                    <button
+                      onClick={nextStep}
+                      disabled={currentStep === selectedRecipe.steps.length - 1}
+                      className="control-button"
+                    >
+                      {currentStep === selectedRecipe.steps.length - 1 ? '✓ Complete' : 'Next →'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Right Side - Safety Table */}
+          <div className="w-80 flex-shrink-0">
+            <div className="safety-table-container">
+              <h3 className="safety-table-title">
+                🌡️ Safe Cooking Temperatures
+              </h3>
+              <p className="safety-table-subtitle">
+                Internal temperatures for food safety
+              </p>
+              
+              <div className="safety-table">
+                <div className="safety-table-header">
+                  <div className="safety-table-cell header">Food Type</div>
+                  <div className="safety-table-cell header">Temperature</div>
                 </div>
                 
-                <button
-                  onClick={nextStep}
-                  disabled={currentStep === selectedRecipe.steps.length - 1}
-                  className="control-button"
-                >
-                  {currentStep === selectedRecipe.steps.length - 1 ? '✓ Complete' : 'Next →'}
-                </button>
+                <div className="safety-table-row">
+                  <div className="safety-table-cell">Ground Beef/Pork</div>
+                  <div className="safety-table-cell temp">160°F (71°C)</div>
+                </div>
+                
+                <div className="safety-table-row">
+                  <div className="safety-table-cell">Beef Steaks/Roasts</div>
+                  <div className="safety-table-cell temp">145°F (63°C)</div>
+                </div>
+                
+                <div className="safety-table-row">
+                  <div className="safety-table-cell">Pork Chops/Roasts</div>
+                  <div className="safety-table-cell temp">145°F (63°C)</div>
+                </div>
+                
+                <div className="safety-table-row">
+                  <div className="safety-table-cell">Chicken/Turkey</div>
+                  <div className="safety-table-cell temp">165°F (74°C)</div>
+                </div>
+                
+                <div className="safety-table-row">
+                  <div className="safety-table-cell">Duck/Goose</div>
+                  <div className="safety-table-cell temp">165°F (74°C)</div>
+                </div>
+                
+                <div className="safety-table-row">
+                  <div className="safety-table-cell">Fish/Seafood</div>
+                  <div className="safety-table-cell temp">145°F (63°C)</div>
+                </div>
+                
+                <div className="safety-table-row">
+                  <div className="safety-table-cell">Eggs</div>
+                  <div className="safety-table-cell temp">160°F (71°C)</div>
+                </div>
+                
+                <div className="safety-table-row">
+                  <div className="safety-table-cell">Leftovers</div>
+                  <div className="safety-table-cell temp">165°F (74°C)</div>
+                </div>
+              </div>
+              
+              <div className="safety-tips">
+                <h4 className="safety-tips-title">💡 Safety Tips:</h4>
+                <ul className="safety-tips-list">
+                  <li>Use a food thermometer for accuracy</li>
+                  <li>Check the thickest part of the meat</li>
+                  <li>Let meat rest 3-5 minutes after cooking</li>
+                  <li>When in doubt, cook it longer</li>
+                </ul>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   )
