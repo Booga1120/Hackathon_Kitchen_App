@@ -1,0 +1,184 @@
+erDiagram
+    %% Core User and Session Management
+    USER {
+        string id PK
+        string sessionId
+        int zoomLevel "75-150%"
+        string preferredCuisine
+        datetime createdAt
+        datetime lastActiveAt
+    }
+
+    %% Recipe Generation Input
+    RECIPE_REQUEST {
+        string id PK
+        string userId FK
+        text availableIngredients
+        text availableTools
+        string desiredStyle
+        datetime requestedAt
+        string status "loading|completed|error"
+    }
+
+    %% Generated Recipe
+    RECIPE {
+        string id PK
+        string requestId FK
+        string name
+        text description
+        string cookingTime
+        string difficulty "Easy|Medium|Hard"
+        text tips
+        boolean isIndianaRecipe
+        int stepCount
+        datetime generatedAt
+    }
+
+    %% Recipe Ingredients (Both Available and Missing)
+    RECIPE_INGREDIENT {
+        string id PK
+        string recipeId FK
+        string ingredientName
+        string measurement
+        string category "available|missing|required"
+        int sortOrder
+    }
+
+    %% Cooking Steps
+    COOKING_STEP {
+        string id PK
+        string recipeId FK
+        int stepNumber
+        text instruction
+        int estimatedTimeMinutes
+        string difficulty "Easy|Medium|Hard"
+    }
+
+    %% User Cooking Session
+    COOKING_SESSION {
+        string id PK
+        string userId FK
+        string recipeId FK
+        int currentStep
+        datetime startedAt
+        datetime completedAt
+        string status "active|paused|completed|abandoned"
+    }
+
+    %% User Ratings and Feedback
+    RECIPE_RATING {
+        string id PK
+        string userId FK
+        string recipeId FK
+        string rating "happy|neutral|sad"
+        text feedback
+        datetime ratedAt
+    }
+
+    %% Kitchen Tools Database
+    KITCHEN_TOOL {
+        string id PK
+        string name
+        string category "basic|advanced|specialty"
+        text description
+        boolean isRequired
+    }
+
+    %% Recipe-Tool Relationships
+    RECIPE_TOOL {
+        string id PK
+        string recipeId FK
+        string toolId FK
+        boolean isRequired
+        string purpose
+    }
+
+    %% Measurement Conversions
+    MEASUREMENT_UNIT {
+        string id PK
+        string name
+        string abbreviation
+        string category "volume|weight|temperature"
+        float baseConversionRate
+        string baseUnit
+    }
+
+    %% Conversion History (for user convenience)
+    CONVERSION_HISTORY {
+        string id PK
+        string userId FK
+        float fromValue
+        string fromUnit
+        float toValue
+        string toUnit
+        datetime convertedAt
+    }
+
+    %% Food Safety Reference Data
+    FOOD_SAFETY_TEMP {
+        string id PK
+        string foodType
+        int temperatureFahrenheit
+        int temperatureCelsius
+        text safetyNotes
+        string category "meat|poultry|seafood|dairy|other"
+    }
+
+    %% Ingredient Database (for future enhancements)
+    INGREDIENT_DATABASE {
+        string id PK
+        string name
+        string category "protein|vegetable|grain|dairy|spice|other"
+        text description
+        text nutritionalInfo
+        text storageInstructions
+        int avgShelfLifeDays
+    }
+
+    %% Recipe Analytics (for app improvement)
+    RECIPE_ANALYTICS {
+        string id PK
+        string recipeId FK
+        int viewCount
+        int startCookingCount
+        int completionCount
+        float avgCompletionTime
+        float avgRating
+        datetime lastAnalyzed
+    }
+
+    %% Error Logging
+    ERROR_LOG {
+        string id PK
+        string userId FK
+        string errorType
+        text errorMessage
+        text stackTrace
+        string context "recipe_generation|cooking|conversion|other"
+        datetime occurredAt
+    }
+
+    %% Relationships
+    USER ||--o{ RECIPE_REQUEST : creates
+    USER ||--o{ COOKING_SESSION : participates
+    USER ||--o{ RECIPE_RATING : provides
+    USER ||--o{ CONVERSION_HISTORY : performs
+    USER ||--o{ ERROR_LOG : encounters
+
+    RECIPE_REQUEST ||--o{ RECIPE : generates
+    
+    RECIPE ||--o{ RECIPE_INGREDIENT : contains
+    RECIPE ||--o{ COOKING_STEP : hasSteps
+    RECIPE ||--o{ RECIPE_TOOL : requires
+    RECIPE ||--o{ COOKING_SESSION : usedIn
+    RECIPE ||--o{ RECIPE_RATING : receives
+    RECIPE ||--o{ RECIPE_ANALYTICS : tracked
+
+    KITCHEN_TOOL ||--o{ RECIPE_TOOL : featuredIn
+    
+    COOKING_SESSION ||--|| RECIPE : follows
+    COOKING_SESSION ||--|| USER : belongs
+
+    MEASUREMENT_UNIT ||--o{ CONVERSION_HISTORY : usedInConversion
+
+    INGREDIENT_DATABASE ||--o{ RECIPE_INGREDIENT : references
