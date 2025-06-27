@@ -11,39 +11,43 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [apiConfig, setApiConfig] = useState({
-    endpoint: 'http://localhost:3080/api/ask', // Default LibreChat endpoint
+    endpoint: 'https://api.openai.com/v1/chat/completions', // Default OpenAI endpoint
     apiKey: ''
   })
   const [showApiConfig, setShowApiConfig] = useState(false)
 
-  // Enhanced API call to LibreChat
-  const callLibreChat = async (prompt) => {
-    try {
-      const response = await fetch(apiConfig.endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiConfig.apiKey}`,
-        },
-        body: JSON.stringify({
-          message: prompt,
-          model: 'gpt-3.5-turbo', // or whatever model you prefer
-          temperature: 0.7,
-          max_tokens: 2000
-        })
+  // Enhanced API call to OpenAI
+  // Enhanced API call to OpenAI
+const callOpenAI = async (prompt) => {
+  try {
+    const response = await fetch(apiConfig.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiConfig.apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'user', content: prompt }
+        ],
+        temperature: 0.7,
+        max_tokens: 2000
       })
+    });
 
-      if (!response.ok) {
-        throw new Error(`API request failed: ${response.status} ${response.statusText}`)
-      }
-
-      const data = await response.json()
-      return data.message || data.response || data.text
-    } catch (error) {
-      console.error('LibreChat API Error:', error)
-      throw new Error(`Failed to connect to LibreChat: ${error.message}`)
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
     }
+
+    const data = await response.json();
+    return data.choices?.[0]?.message?.content || 'No response message found.';
+  } catch (error) {
+    console.error('OpenAI API Error:', error);
+    throw new Error(`Failed to connect to OpenAI: ${error.message}`);
   }
+}
+
 
   const generateRecipePrompt = (ingredientsList, toolsList) => {
     return `You are a professional chef assistant. I have the following ingredients and kitchen tools available:
@@ -94,7 +98,7 @@ Focus on recipes that use most of the available ingredients and are practical to
 
     try {
       const prompt = generateRecipePrompt(ingredients, availableTools)
-      const response = await callLibreChat(prompt)
+      const response = await callOpenAI(prompt)
       
       // Parse the JSON response
       let parsedRecipes
@@ -109,7 +113,7 @@ Focus on recipes that use most of the available ingredients and are practical to
         }
       } catch (parseError) {
         console.error('JSON parsing error:', parseError)
-        throw new Error('Invalid response format from LibreChat')
+        throw new Error('Invalid response format from OpenAI')
       }
 
       if (parsedRecipes && parsedRecipes.recipes && Array.isArray(parsedRecipes.recipes)) {
@@ -185,7 +189,7 @@ Focus on recipes that use most of the available ingredients and are practical to
             AI CULINARY CHEF
           </h1>
           <h2 className="hero-subtitle">
-            Powered by LibreChat
+            Powered by OpenAI
           </h2>
           <p className="hero-description">
             Transform your kitchen ingredients into amazing meals with AI-powered recipe generation. 
@@ -204,7 +208,7 @@ Focus on recipes that use most of the available ingredients and are practical to
         {/* API Configuration Panel */}
         {showApiConfig && (
           <div className="api-config-panel">
-            <h3 className="api-config-title">LibreChat API Configuration</h3>
+            <h3 className="api-config-title">OpenAI API Configuration</h3>
             <div className="api-config-fields">
               <div>
                 <label className="api-config-label">
@@ -214,7 +218,7 @@ Focus on recipes that use most of the available ingredients and are practical to
                   type="text"
                   value={apiConfig.endpoint}
                   onChange={(e) => setApiConfig({...apiConfig, endpoint: e.target.value})}
-                  placeholder="http://localhost:3080/api/ask"
+                  placeholder="https://api.openai.com/v1/chat/completions"
                   className="api-config-input"
                 />
               </div>
@@ -226,7 +230,7 @@ Focus on recipes that use most of the available ingredients and are practical to
                   type="password"
                   value={apiConfig.apiKey}
                   onChange={(e) => setApiConfig({...apiConfig, apiKey: e.target.value})}
-                  placeholder="Your LibreChat API key"
+                  placeholder="Your OpenAI API key"
                   className="api-config-input"
                 />
               </div>
