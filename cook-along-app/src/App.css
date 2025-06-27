@@ -1281,3 +1281,78 @@
     padding-bottom: 1rem;
   }
 }
+
+.finishing-screen {
+  min-height: 500px;
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.finishing-screen .premium-card {
+  font-size: 1.5rem;
+  padding: 3.5rem 2.5rem;
+  border-radius: 32px;
+  min-width: 380px;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.finishing-screen h2, .finishing-screen h3 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.finishing-screen p {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.rating-btn {
+  font-size: 4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 1.5rem;
+  transition: transform 0.1s, box-shadow 0.1s;
+  border-radius: 50%;
+  outline: none;
+  box-shadow: 0 0 0 0px #8b5cf6;
+}
+.rating-btn:hover, .rating-btn:focus {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 6px #dbeafe;
+  background: #f3f4f6;
+}
+.rating-btn.selected {
+  background: #f3f4f6;
+  box-shadow: 0 0 0 8px #8b5cf6;
+  transform: scale(1.3);
+}
+
+@media (max-width: 900px) {
+  .finishing-screen {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .finishing-screen .premium-card {
+    min-width: 260px;
+    padding: 2rem 1rem;
+  }
+  .finishing-screen h2, .finishing-screen h3 {
+    font-size: 2rem;
+  }
+  .finishing-screen p {
+    font-size: 1.1rem;
+  }
+  .rating-btn {
+    font-size: 2.5rem;
+    margin: 0 0.5rem;
+  }
+}
