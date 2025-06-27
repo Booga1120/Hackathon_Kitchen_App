@@ -86,70 +86,95 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl md:text-6xl font-bold text-center text-orange-800 mb-8">
-          🍳 Cook-Along
-        </h1>
+    <div className="min-h-screen app-container">
+      <div className="animated-background"></div>
+      
+      <div className="relative z-10 container mx-auto px-4 py-12">
+        <div className="hero-section">
+          <h1 className="hero-title">
+            CULINARY RECIPE ENGINE
+          </h1>
+          <h2 className="hero-subtitle">
+            Cook Amazing Meals From Ingredients
+          </h2>
+          <p className="hero-description">
+            Transform your kitchen ingredients into stunning homemade meals. Perfect for busy weeknights, 
+            weekend cooking adventures, and more, our tool matches your ingredients with custom recipes, 
+            step-by-step instructions, and cooking guidance in just minutes.
+          </p>
+        </div>
         
         {currentView === 'input' && (
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-xl p-8 border-4 border-orange-200">
-              <h2 className="text-3xl font-bold text-center text-orange-800 mb-6">
-                What's in your kitchen?
-              </h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <textarea
-                  value={ingredients}
-                  onChange={(e) => setIngredients(e.target.value)}
-                  placeholder="Enter your ingredients separated by commas (e.g., eggs, milk, cheese, tomatoes)"
-                  className="w-full p-4 border-4 border-orange-300 rounded-xl text-lg resize-none focus:border-orange-500 focus:outline-none focus:ring-4 focus:ring-orange-100"
-                  rows={6}
-                />
-                <button
-                  type="submit"
-                  disabled={!ingredients.trim()}
-                  className="w-full py-4 bg-gradient-to-r from-orange-600 to-red-600 text-white text-xl font-bold rounded-xl hover:from-orange-700 hover:to-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
-                >
-                  Find Recipes
-                </button>
-              </form>
+          <div className="max-w-2xl mx-auto mt-16">
+            <div className="premium-card">
+              <div className="card-content">
+                <h3 className="card-title">
+                  What's in your kitchen?
+                </h3>
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="input-container">
+                    <textarea
+                      value={ingredients}
+                      onChange={(e) => setIngredients(e.target.value)}
+                      placeholder="Enter your ingredients separated by commas (e.g., eggs, milk, cheese, tomatoes)"
+                      className="premium-textarea"
+                      rows={6}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={!ingredients.trim()}
+                    className="premium-button"
+                  >
+                    Find Perfect Recipes
+                  </button>
+                </form>
+                <p className="signup-offer">
+                  Create your first meal! No cooking experience required
+                </p>
+              </div>
             </div>
           </div>
         )}
 
         {currentView === 'recipes' && (
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto mt-12">
             <button
               onClick={goBack}
-              className="mb-8 bg-gradient-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-xl font-bold hover:from-orange-700 hover:to-red-700 transition-all duration-300"
+              className="back-button mb-12"
             >
               ← Start Over
             </button>
             
-            <h2 className="text-3xl font-bold text-center text-orange-800 mb-8">
+            <h2 className="section-title">
               Recipes you can make:
             </h2>
             
             {recipes.length === 0 ? (
-              <div className="text-center text-xl text-orange-600">
-                No recipes found. Try adding more ingredients!
+              <div className="no-results">
+                <div className="text-6xl mb-4">🔍</div>
+                <p className="text-xl text-slate-500">
+                  No recipes found. Try adding more ingredients!
+                </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="recipe-grid">
                 {recipes.map((recipe) => (
                   <div
                     key={recipe.id}
-                    className="bg-white rounded-2xl shadow-xl p-6 border-4 border-transparent hover:border-orange-500 cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-2"
+                    className="recipe-card"
                     onClick={() => selectRecipe(recipe)}
                   >
-                    <div className="text-6xl text-center mb-4">🍳</div>
-                    <h3 className="text-2xl font-bold text-orange-800 text-center mb-2">
+                    <div className="recipe-icon">🍳</div>
+                    <h3 className="recipe-name">
                       {recipe.name}
                     </h3>
-                    <p className="text-orange-600 text-center font-semibold">
-                      {recipe.steps.length} steps
+                    <p className="recipe-steps">
+                      {recipe.steps.length} guided steps
                     </p>
+                    <div className="recipe-overlay">
+                      <span className="start-cooking">Start Cooking →</span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -158,46 +183,42 @@ function App() {
         )}
 
         {currentView === 'walkthrough' && selectedRecipe && (
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto mt-12">
             <button
               onClick={goBack}
-              className="mb-8 bg-gradient-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-xl font-bold hover:from-orange-700 hover:to-red-700 transition-all duration-300"
+              className="back-button mb-12"
             >
               ← Back to Recipes
             </button>
             
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border-4 border-orange-200">
-              <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white p-6 text-center">
-                <h2 className="text-3xl font-bold mb-2">{selectedRecipe.name}</h2>
-                <p className="text-xl">Step {currentStep + 1} of {selectedRecipe.steps.length}</p>
+            <div className="walkthrough-container">
+              <div className="walkthrough-header">
+                <h2 className="walkthrough-title">{selectedRecipe.name}</h2>
+                <p className="walkthrough-progress">Step {currentStep + 1} of {selectedRecipe.steps.length}</p>
               </div>
               
-              <div className="p-8 text-center">
-                <div className="text-8xl mb-6">👨‍🍳</div>
-                <p className="text-2xl font-bold text-orange-800 leading-relaxed">
+              <div className="walkthrough-content">
+                <div className="chef-icon">👨‍🍳</div>
+                <p className="current-step">
                   {selectedRecipe.steps[currentStep]}
                 </p>
               </div>
               
-              <div className="bg-orange-50 p-6 flex items-center justify-between">
+              <div className="walkthrough-controls">
                 <button
                   onClick={prevStep}
                   disabled={currentStep === 0}
-                  className="px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold rounded-xl hover:from-orange-700 hover:to-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300"
+                  className="control-button prev-button"
                 >
                   ← Previous
                 </button>
                 
-                <div className="flex gap-2">
+                <div className="step-indicators">
                   {selectedRecipe.steps.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentStep(index)}
-                      className={`w-4 h-4 rounded-full transition-all duration-300 ${
-                        index === currentStep
-                          ? 'bg-gradient-to-r from-orange-600 to-red-600 scale-125'
-                          : 'bg-gray-300 hover:bg-orange-400'
-                      }`}
+                      className={`step-dot ${index === currentStep ? 'active' : ''}`}
                     />
                   ))}
                 </div>
@@ -205,9 +226,9 @@ function App() {
                 <button
                   onClick={nextStep}
                   disabled={currentStep === selectedRecipe.steps.length - 1}
-                  className="px-6 py-3 bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold rounded-xl hover:from-orange-700 hover:to-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300"
+                  className="control-button next-button"
                 >
-                  {currentStep === selectedRecipe.steps.length - 1 ? 'Finish' : 'Next →'}
+                  {currentStep === selectedRecipe.steps.length - 1 ? '✓ Complete' : 'Next →'}
                 </button>
               </div>
             </div>
