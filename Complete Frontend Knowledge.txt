@@ -1,0 +1,3055 @@
+Complete Frontend File Structure Diagram
+============================================================
+
+src
+    ├── App.jsx
+    ├── main.jsx
+    ├── App.css
+    └── index.css
+
+================================================================================
+
+File Summary by Type
+==============================
+
+CSS (.css): 2 files
+JavaScript/React (.jsx): 2 files
+
+Total: 4 files
+
+================================================================================
+
+=== CSS Files (.css) ===
+==================================================
+
+*> [src/App.css]
+********************
+
+/* Main App Container */
+.app-container {
+  position: relative;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #94a3b8 75%, #64748b 100%);
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animated Background - Full Screen */
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: 
+    radial-gradient(circle at 15% 85%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 75% 75%, rgba(245, 158, 11, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 30%);
+  background-size: 800px 800px, 600px 600px, 400px 400px, 500px 500px, 300px 300px;
+  animation: backgroundShift 15s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { 
+    background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 50% 50%;
+  }
+  25% { 
+    background-position: 10% 10%, 90% 10%, 10% 90%, 90% 90%, 40% 60%;
+  }
+  50% { 
+    background-position: 20% 5%, 80% 20%, 5% 80%, 95% 85%, 60% 40%;
+  }
+  75% { 
+    background-position: 5% 20%, 95% 5%, 20% 95%, 85% 80%, 45% 55%;
+  }
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
+  position: relative;
+  z-index: 10;
+  padding: 0 2rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #ec4899;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #475569;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* API Configuration Styles */
+.api-config-toggle {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  color: #1e293b;
+  font-weight: 600;
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.1);
+}
+
+.api-config-toggle:hover {
+  background: rgba(139, 92, 246, 0.05);
+  border-color: #8b5cf6;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px rgba(139, 92, 246, 0.3);
+}
+
+.api-config-panel {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.15);
+}
+
+.api-config-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+}
+
+.api-config-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.api-config-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.api-config-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.api-config-input:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Enhanced Input Styles */
+.input-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
+
+.input-helper-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+/* Error Message */
+.error-message {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  color: #dc2626;
+}
+
+/* Loading Styles */
+.loading-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.loading-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  animation: bounce 2s infinite;
+}
+
+.loading-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.loading-description {
+  font-size: 1.125rem;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.loading-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-dot-1 {
+  background: #8b5cf6;
+}
+
+.loading-dot-2 {
+  background: #ec4899;
+  animation-delay: 0.2s;
+}
+
+.loading-dot-3 {
+  background: #3b82f6;
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -30px, 0);
+  }
+  70% {
+    transform: translate3d(0, -15px, 0);
+  }
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Enhanced Recipe Card */
+.enhanced-recipe-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.enhanced-recipe-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.recipe-description {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.recipe-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.recipe-detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.recipe-detail-label {
+  color: #6b7280;
+}
+
+.recipe-detail-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.missing-ingredients {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #fef3c7;
+  border-radius: 12px;
+  border: 1px solid #fde68a;
+}
+
+.missing-ingredients-text {
+  font-size: 0.75rem;
+  color: #92400e;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Walkthrough Enhancements */
+.walkthrough-meta {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.chef-tips {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 16px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.chef-tips-title {
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 0.5rem;
+}
+
+.chef-tips-content {
+  color: #1e40af;
+  margin: 0;
+}
+
+/* Premium Card */
+.premium-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.premium-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 35px 70px -12px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+.premium-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ec4899, #f59e0b, #10b981, #3b82f6, #8b5cf6);
+  background-size: 200% 100%;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.card-content {
+  padding: 3rem;
+}
+
+.card-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.01em;
+}
+
+/* Input Container */
+.input-container {
+  position: relative;
+}
+
+.premium-textarea {
+  width: 100%;
+  padding: 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  resize: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  color: #1e293b;
+}
+
+.premium-textarea:focus {
+  outline: none;
+  border-color: #ec4899;
+  box-shadow: 
+    0 0 0 4px rgba(236, 72, 153, 0.1),
+    0 10px 25px -12px rgba(236, 72, 153, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.premium-textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* Premium Button */
+.premium-button {
+  width: 100%;
+  padding: 1.25rem 2rem;
+  background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 700;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 25px -12px rgba(236, 72, 153, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.premium-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 20px 40px -12px rgba(236, 72, 153, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+.premium-button:active:not(:disabled) {
+  transform: translateY(0);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.premium-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.1);
+}
+
+.premium-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.premium-button:hover::before {
+  left: 100%;
+}
+
+/* Signup Offer */
+.signup-offer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #8b5cf6;
+  font-weight: 600;
+}
+
+/* Back Button */
+.back-button {
+  padding: 0.875rem 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  color: #1e293b;
+  font-weight: 600;
+  border: 2px solid rgba(236, 72, 153, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+  background: rgba(236, 72, 153, 0.05);
+  border-color: #ec4899;
+  border-width: 2px;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px rgba(236, 72, 153, 0.3);
+}
+
+/* Section Title */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 3rem;
+  letter-spacing: -0.02em;
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+/* Recipe Grid */
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+/* Recipe Card */
+.recipe-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.recipe-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-color: rgba(236, 72, 153, 0.4);
+  border-width: 2px;
+}
+
+.recipe-card:hover .recipe-overlay {
+  opacity: 1;
+}
+
+.recipe-icon {
+  font-size: 4rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.recipe-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.recipe-steps {
+  text-align: center;
+  color: #64748b;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.recipe-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.9), rgba(245, 158, 11, 0.9));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 20px;
+}
+
+.start-cooking {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Walkthrough Container */
+.walkthrough-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.walkthrough-header {
+  background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+  color: white;
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.walkthrough-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.walkthrough-progress {
+  font-size: 1.125rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.walkthrough-content {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.chef-icon {
+  font-size: 5rem;
+  margin-bottom: 2rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.current-step {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Walkthrough Controls */
+.walkthrough-controls {
+  background: rgba(248, 250, 252, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.control-button {
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+  color: white;
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 12px -4px rgba(236, 72, 153, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.control-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 8px 20px -8px rgba(236, 72, 153, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+.control-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Step Indicators */
+.step-indicators {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.step-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #cbd5e1;
+}
+
+.step-dot:hover {
+  background: #94a3b8;
+  transform: scale(1.2);
+}
+
+.step-dot.active {
+  background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+  transform: scale(1.3);
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .card-content {
+    padding: 2rem;
+  }
+  
+  .recipe-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .walkthrough-controls {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .step-indicators {
+    order: -1;
+  }
+  
+  .api-config-panel {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .api-config-fields {
+    gap: 1rem;
+  }
+}
+
+/* Enhanced Safety Table Styles - Elderly Friendly */
+.safety-table-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.safety-table-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.safety-table-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.safety-table {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #e5e7eb;
+  background: white;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+.safety-table-header {
+  display: flex;
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.safety-table-row {
+  display: flex;
+  border-bottom: 2px solid #f3f4f6;
+  transition: background-color 0.2s ease;
+}
+
+.safety-table-row:hover {
+  background-color: #fef2f2;
+}
+
+.safety-table-row:last-child {
+  border-bottom: none;
+}
+
+.safety-table-cell {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  min-height: 2.5rem;
+}
+
+.safety-table-cell.header {
+  font-weight: 700;
+  color: white;
+  font-size: 1rem;
+}
+
+.safety-table-cell.temp {
+  font-weight: 700;
+  color: #dc2626;
+  justify-content: center;
+  font-size: 1rem;
+  background-color: #fef2f2;
+}
+
+.safety-table-cell:first-child {
+  flex: 2;
+  border-right: 2px solid #f3f4f6;
+  background-color: #f8fafc;
+}
+
+.safety-table-cell:last-child {
+  flex: 1;
+  justify-content: center;
+}
+
+.safety-tips {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 10px;
+  border: 2px solid #f59e0b;
+  width: 100%;
+  max-width: 320px;
+}
+
+.safety-tips-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #92400e;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.safety-tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.safety-tips-list li {
+  font-size: 0.75rem;
+  color: #92400e;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  position: relative;
+  font-weight: 600;
+}
+
+.safety-tips-list li::before {
+  content: "•";
+  color: #f59e0b;
+  font-weight: bold;
+  font-size: 1rem;
+  position: absolute;
+  left: 0;
+}
+
+.safety-tips-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design for Tables */
+@media (max-width: 1400px) {
+  .flex {
+    flex-direction: column;
+  }
+  
+  .flex-1 {
+    width: 100%;
+    max-width: 800px;
+    margin: 1rem auto;
+  }
+  
+  .conversion-table-container,
+  .safety-table-container {
+    position: static;
+    max-height: none;
+  }
+  
+  .conversion-tool,
+  .safety-table {
+    max-width: 500px;
+  }
+  
+  .conversion-tips,
+  .safety-tips {
+    max-width: 500px;
+  }
+  
+  /* Stack tables side by side on medium screens */
+  .flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .flex > div:first-child {
+    grid-column: 1;
+  }
+  
+  .flex > div:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+  
+  .flex > div:last-child {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 1024px) {
+  .flex {
+    grid-template-columns: 1fr;
+  }
+  
+  .flex > div:first-child,
+  .flex > div:last-child {
+    grid-column: 1;
+  }
+  
+  .conversion-table-container,
+  .safety-table-container {
+    padding: 1.25rem;
+  }
+  
+  .conversion-table-title,
+  .safety-table-title {
+    font-size: 1.125rem;
+  }
+  
+  .conversion-tool,
+  .safety-table {
+    max-width: 450px;
+  }
+  
+  .conversion-tips,
+  .safety-tips {
+    max-width: 450px;
+  }
+  
+  .conversion-tips,
+  .safety-tips {
+    padding: 0.875rem;
+  }
+  
+  .conversion-tips-title,
+  .safety-tips-title {
+    font-size: 0.875rem;
+  }
+  
+  .conversion-tips-list li,
+  .safety-tips-list li {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .conversion-table-container,
+  .safety-table-container {
+    padding: 1rem;
+  }
+  
+  .conversion-table-title,
+  .safety-table-title {
+    font-size: 1rem;
+  }
+  
+  .conversion-tool,
+  .safety-table {
+    max-width: 400px;
+  }
+  
+  .conversion-tips,
+  .safety-tips {
+    max-width: 400px;
+  }
+  
+  .conversion-tips,
+  .safety-tips {
+    padding: 0.75rem;
+  }
+  
+  .conversion-tips-title,
+  .safety-tips-title {
+    font-size: 0.8rem;
+  }
+  
+  .conversion-tips-list li,
+  .safety-tips-list li {
+    font-size: 0.7rem;
+  }
+}
+
+/* Conversion Tool Styles */
+.conversion-table-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.conversion-table-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.conversion-table-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.conversion-tool {
+  background: white;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+}
+
+.conversion-input-group {
+  margin-bottom: 0.875rem;
+}
+
+.conversion-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.conversion-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.conversion-input {
+  flex: 0.6;
+  padding: 0.625rem 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  background: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.conversion-input:focus {
+  outline: none;
+  border-color: #10b981;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.conversion-input:read-only {
+  background: #f3f4f6;
+  color: #1f2937;
+  font-weight: 700;
+}
+
+.conversion-select {
+  flex: 1;
+  padding: 0.625rem 0.75rem;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.conversion-select:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.conversion-select optgroup {
+  font-weight: 700;
+  color: #374151;
+  background: #f3f4f6;
+  font-size: 0.875rem;
+}
+
+.conversion-select option {
+  font-weight: 600;
+  padding: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.conversion-arrow {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #10b981;
+  margin: 0.75rem 0;
+  padding: 0.375rem;
+  background: #f0fdf4;
+  border-radius: 6px;
+  border: 2px solid #10b981;
+}
+
+.conversion-button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: 2px solid #10b981;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.75rem;
+}
+
+.conversion-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -8px rgba(16, 185, 129, 0.4);
+}
+
+.conversion-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.conversion-tips {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-radius: 10px;
+  border: 2px solid #3b82f6;
+  width: 100%;
+  max-width: 320px;
+}
+
+.conversion-tips-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.conversion-tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.conversion-tips-list li {
+  font-size: 0.75rem;
+  color: #1e40af;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  position: relative;
+  font-weight: 600;
+}
+
+.conversion-tips-list li::before {
+  content: "•";
+  color: #3b82f6;
+  font-weight: bold;
+  font-size: 1rem;
+  position: absolute;
+  left: 0;
+}
+
+.conversion-tips-list li:last-child {
+  margin-bottom: 0;
+}
+
+.even-height-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 700px;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+@media (max-width: 1024px) {
+  .even-height-panel {
+    min-height: 500px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .even-height-panel {
+    min-height: 350px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+.finishing-screen {
+  min-height: 500px;
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.finishing-screen .premium-card {
+  font-size: 1.5rem;
+  padding: 3.5rem 2.5rem;
+  border-radius: 32px;
+  min-width: 380px;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.finishing-screen h2, .finishing-screen h3 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.finishing-screen p {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.rating-btn {
+  font-size: 4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 1.5rem;
+  transition: transform 0.1s, box-shadow 0.1s;
+  border-radius: 50%;
+  outline: none;
+  box-shadow: 0 0 0 0px #8b5cf6;
+}
+.rating-btn:hover, .rating-btn:focus {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 6px #dbeafe;
+  background: #f3f4f6;
+}
+.rating-btn.selected {
+  background: #f3f4f6;
+  box-shadow: 0 0 0 8px #8b5cf6;
+  transform: scale(1.3);
+}
+
+@media (max-width: 900px) {
+  .finishing-screen {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .finishing-screen .premium-card {
+    min-width: 260px;
+    padding: 2rem 1rem;
+  }
+  .finishing-screen h2, .finishing-screen h3 {
+    font-size: 2rem;
+  }
+  .finishing-screen p {
+    font-size: 1.1rem;
+  }
+  .rating-btn {
+    font-size: 2.5rem;
+    margin: 0 0.5rem;
+  }
+}
+
+--------------------------------------------------
+
+*> [src/index.css]
+********************
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Root Variables */
+:root {
+  --primary-gradient: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+  --secondary-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #3b82f6 100%);
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-accent: #ec4899;
+  --shadow-soft: 0 10px 25px -12px rgba(0, 0, 0, 0.15);
+  --shadow-strong: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --border-radius-lg: 20px;
+  --border-radius-xl: 24px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv03', 'cv04', 'cv11';
+  background: #f8fafc;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Improve text rendering */
+body, input, textarea, button {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Code styling */
+code {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Fira Code',
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  background: rgba(236, 72, 153, 0.1);
+  padding: 0.125rem 0.25rem;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+
+/* Remove default button styles */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Remove default input styles */
+input, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Focus styles */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background: rgba(236, 72, 153, 0.2);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: rgba(236, 72, 153, 0.2);
+  color: var(--text-primary);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(248, 250, 252, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ec4899, #f59e0b);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #db2777, #f59e0b);
+}
+
+/* Enhanced Utility Classes */
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-secondary {
+  background: var(--secondary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.soft-shadow {
+  box-shadow: var(--shadow-soft);
+}
+
+.strong-shadow {
+  box-shadow: var(--shadow-strong);
+}
+
+.smooth-transition {
+  transition: var(--transition-smooth);
+}
+
+.slow-transition {
+  transition: var(--transition-slow);
+}
+
+/* Enhanced Animation Utilities */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.5s ease-out;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Staggered animations */
+.animate-stagger > * {
+  animation-delay: calc(var(--stagger-delay, 0.1s) * var(--index, 0));
+}
+
+/* Enhanced Color Utilities */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-secondary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+}
+
+.bg-gradient-tertiary {
+  background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+}
+
+/* Enhanced Glass Effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-strong);
+}
+
+.glass-card-hover {
+  transition: var(--transition-slow);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 35px 70px -12px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Interactive Elements */
+.interactive-scale {
+  transition: var(--transition-smooth);
+}
+
+.interactive-scale:hover {
+  transform: scale(1.05);
+}
+
+.interactive-scale:active {
+  transform: scale(0.95);
+}
+
+.interactive-lift {
+  transition: var(--transition-smooth);
+}
+
+.interactive-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Performance optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Loading States */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .glass-effect {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: 1px solid #ccc !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 1);
+    --glass-border: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animated-background {
+    animation: none !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glass-bg: rgba(30, 41, 59, 0.95);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+  }
+  
+  body {
+    background: #0f172a;
+    color: var(--text-primary);
+  }
+}
+
+--------------------------------------------------
+
+
+================================================================================
+
+=== JavaScript/React Files (.jsx) ===
+==================================================
+
+*> [src/App.jsx]
+********************
+
+import { useState } from 'react'
+import './App.css'
+
+function App() {
+  const [currentView, setCurrentView] = useState('input') // 'input', 'recipes', 'walkthrough', 'loading', 'finished'
+  const [ingredients, setIngredients] = useState('')
+  const [availableTools, setAvailableTools] = useState('')
+  const [recipes, setRecipes] = useState([])
+  const [selectedRecipe, setSelectedRecipe] = useState(null)
+  const [currentStep, setCurrentStep] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [showApiConfig, setShowApiConfig] = useState(false)
+  const [conversionFromValue, setConversionFromValue] = useState('')
+  const [conversionFromUnit, setConversionFromUnit] = useState('')
+  const [conversionToValue, setConversionToValue] = useState('')
+  const [conversionToUnit, setConversionToUnit] = useState('')
+  const [userRating, setUserRating] = useState(null)
+  const [showTools, setShowTools] = useState(false)
+  const [desiredStyle, setDesiredStyle] = useState('')
+  const [imageBase64, setImageBase64] = useState(null)
+
+  const apiEndpoint = 'https://api.openai.com/v1/chat/completions';
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+
+  const callOpenAI = async (prompt) => {
+    try {
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            { role: 'user', content: prompt }
+          ],
+          temperature: 0.7,
+          max_tokens: 2000
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data.choices?.[0]?.message?.content || 'No response message found.';
+    } catch (error) {
+      console.error('OpenAI API Error:', error);
+      throw new Error(`Failed to connect to OpenAI: ${error.message}`);
+    }
+  }
+
+  const generateRecipePrompt = (ingredientsList, toolsList, style) => {
+    return `You are a professional chef assistant. I have the following ingredients and kitchen tools available:
+
+INGREDIENTS:
+${ingredientsList}
+
+AVAILABLE KITCHEN TOOLS:
+${toolsList || 'Basic kitchen tools (knife, cutting board, stove, oven, basic cookware)'}
+
+${style ? `DESIRED STYLE OF FOOD: ${style}\n` : ''}
+
+Please suggest 5 practical recipes I can make with these ingredients and tools. We do not need to use all of them! For each recipe, provide:
+
+1. Recipe name
+2. Brief description (1-2 sentences)
+3. Estimated cooking time
+4. Difficulty level (Easy/Medium/Hard)
+5. Complete list of ingredients needed, with accurate measurements or amounts for each ingredient (e.g., 200g chicken, 1 tablespoon olive oil, 2 cups rice, etc.)
+6. Clearly list any missing ingredients that are required for the recipe but not present in my provided list (as a separate array called missingIngredients)
+7. Step-by-step cooking instructions (numbered, and should be practical and easy to follow, each step description should be concise)
+8. Any tips for variations and safety
+
+**IMPORTANT:**
+- Prioritize recipes that use the most available ingredients and minimize missing ingredients. Only include recipes where most of the ingredients are present.
+- Make the instructions as simple and broken down as possible, suitable for beginners or elderly users.
+- Break down each step into the smallest possible action (e.g., instead of "Chop and sauté onions," use "Chop the onions" and then "Sauté the onions in a pan").
+- It is OK if this increases the total number of steps.
+- **Provide accurate and precise measurements for all ingredients and steps (e.g., use grams, milliliters, or exact quantities instead of vague terms like 'some' or 'a handful').**
+- **Always return a missingIngredients array for each recipe, listing any ingredients not present in my list but required for the recipe.**
+
+Format your response as JSON with this structure:
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Recipe Name",
+      "description": "Brief description",
+      "cookingTime": "X minutes",
+      "difficulty": "Easy/Medium/Hard",
+      "ingredients": ["ingredient1", "ingredient2"],
+      "missingIngredients": ["optional missing ingredients"],
+      "steps": ["Step 1 instructions", "Step 2 instructions"],
+      "tips": "Optional cooking tips"
+    }
+  ]
+}
+
+Focus on recipes that use most of the available ingredients and are practical to make with the listed tools.`
+  }
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImageBase64(reader.result.split(',')[1]); // Remove data:image/...;base64,
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const callOpenAIVision = async (imageBase64) => {
+    const response = await fetch(apiEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4-vision-preview',
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: 'List all the ingredients you see in this fridge. Only list food items, separated by commas.' },
+              { type: 'image_url', image_url: { "url": `data:image/jpeg;base64,${imageBase64}` } }
+            ]
+          }
+        ],
+        max_tokens: 300
+      })
+    });
+    const data = await response.json();
+    return data.choices?.[0]?.message?.content || '';
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    setCurrentView('loading');
+    setShowTools(false);
+
+    let usedIngredients = ingredients;
+    if (imageBase64) {
+      try {
+        const detected = await callOpenAIVision(imageBase64);
+        usedIngredients = detected;
+        setIngredients(detected); // Optionally show detected ingredients in the textarea
+      } catch (err) {
+        setError('Image analysis failed. Please try again or enter ingredients manually.');
+        setIsLoading(false);
+        return;
+      }
+    }
+
+    try {
+      const prompt = generateRecipePrompt(usedIngredients, availableTools, desiredStyle);
+      const response = await callOpenAI(prompt);
+      
+      // Parse the JSON response
+      let parsedRecipes
+      try {
+        // Try to extract JSON from the response
+        const jsonMatch = response.match(/\{[\s\S]*\}/)
+        if (jsonMatch) {
+          parsedRecipes = JSON.parse(jsonMatch[0])
+        } else {
+          // Fallback: assume the entire response is JSON
+          parsedRecipes = JSON.parse(response)
+        }
+      } catch (parseError) {
+        console.error('JSON parsing error:', parseError)
+        throw new Error('Invalid response format from OpenAI')
+      }
+
+      if (parsedRecipes && parsedRecipes.recipes && Array.isArray(parsedRecipes.recipes)) {
+        setRecipes(parsedRecipes.recipes)
+    setCurrentView('recipes')
+      } else {
+        throw new Error('No recipes found in the response')
+      }
+    } catch (error) {
+      console.error('Recipe generation error:', error)
+      setError(error.message)
+      setCurrentView('input')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const selectRecipe = (recipe) => {
+    setSelectedRecipe(recipe)
+    setCurrentStep(0)
+    setCurrentView('walkthrough')
+  }
+
+  const nextStep = () => {
+    if (currentStep < selectedRecipe.steps.length - 1) {
+      setCurrentStep(currentStep + 1)
+    } else {
+      setCurrentView('finished')
+    }
+  }
+
+  const prevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
+
+  const goBack = () => {
+    if (currentView === 'recipes') {
+      setCurrentView('input')
+      setRecipes([])
+    } else if (currentView === 'walkthrough') {
+      setCurrentView('recipes')
+      setSelectedRecipe(null)
+      setCurrentStep(0)
+    }
+  }
+
+  const getDifficultyColor = (difficulty) => {
+    switch (difficulty?.toLowerCase()) {
+      case 'easy': return 'text-green-600'
+      case 'medium': return 'text-yellow-600'
+      case 'hard': return 'text-red-600'
+      default: return 'text-gray-600'
+    }
+  }
+
+  const getDifficultyEmoji = (difficulty) => {
+    switch (difficulty?.toLowerCase()) {
+      case 'easy': return '🟢'
+      case 'medium': return '🟡'
+      case 'hard': return '🔴'
+      default: return '⚪'
+    }
+  }
+
+  const performConversion = () => {
+    if (!conversionFromValue || !conversionFromUnit || !conversionToUnit) {
+      return;
+    }
+
+    const fromValue = parseFloat(conversionFromValue);
+    let result = 0;
+
+    // Volume conversions (all to ml first, then to target)
+    const volumeToMl = {
+      cup: 240,
+      tbsp: 15,
+      tsp: 5,
+      ml: 1,
+      floz: 29.5735,
+      pint: 473.176,
+      quart: 946.353,
+      gallon: 3785.41
+    };
+
+    // Weight conversions (all to grams first, then to target)
+    const weightToG = {
+      oz: 28.3495,
+      lb: 453.592,
+      g: 1,
+      kg: 1000
+    };
+
+    // Temperature conversions
+    if (conversionFromUnit === 'f' && conversionToUnit === 'c') {
+      result = (fromValue - 32) * 5/9;
+    } else if (conversionFromUnit === 'c' && conversionToUnit === 'f') {
+      result = (fromValue * 9/5) + 32;
+    }
+    // Volume conversions
+    else if (volumeToMl[conversionFromUnit] && volumeToMl[conversionToUnit]) {
+      const mlValue = fromValue * volumeToMl[conversionFromUnit];
+      result = mlValue / volumeToMl[conversionToUnit];
+    }
+    // Weight conversions
+    else if (weightToG[conversionFromUnit] && weightToG[conversionToUnit]) {
+      const gValue = fromValue * weightToG[conversionFromUnit];
+      result = gValue / weightToG[conversionToUnit];
+    }
+
+    setConversionToValue(result.toFixed(2));
+  };
+
+  const handleRateExperience = (rating) => {
+    setUserRating(rating);
+    // Optionally, send feedback to server or show a thank you message
+  };
+
+  return (
+    <div className="min-h-screen app-container">
+      <div className="animated-background"></div>
+      
+      <div className="relative z-10 container mx-auto px-4 py-12">
+        {/* Header */}
+        <div className="hero-section">
+          <h1 className="hero-title">
+            AI CULINARY CHEF
+        </h1>
+          <h2 className="hero-subtitle">
+            Powered by OpenAI
+          </h2>
+          <p className="hero-description">
+            Transform your kitchen ingredients into amazing meals with AI-powered recipe generation. 
+            Get personalized recipes based on your available ingredients and kitchen tools.
+          </p>
+        </div>
+        
+        {/* Main Content with Tables */}
+        <div className="flex gap-8 mt-8">
+          {/* Show tools only on input page */}
+          {currentView === 'input' && (
+            <div className="flex-1 even-height-panel">
+              <div className="conversion-table-container">
+                <h3 className="conversion-table-title">
+                  📏 Measurement Converter
+                </h3>
+                <p className="conversion-table-subtitle">
+                  Convert between cooking units
+                </p>
+                
+                <div className="conversion-tool">
+                  <div className="conversion-input-group">
+                    <label className="conversion-label">From:</label>
+                    <div className="conversion-row">
+                      <input
+                        type="number"
+                        className="conversion-input"
+                        placeholder="0"
+                        value={conversionFromValue}
+                        onChange={(e) => setConversionFromValue(e.target.value)}
+                      />
+                      <select
+                        className="conversion-select"
+                        value={conversionFromUnit}
+                        onChange={(e) => setConversionFromUnit(e.target.value)}
+                      >
+                        <option value="">Select unit</option>
+                        <optgroup label="Volume">
+                          <option value="cup">Cup</option>
+                          <option value="tbsp">Tablespoon</option>
+                          <option value="tsp">Teaspoon</option>
+                          <option value="ml">Milliliter (ml)</option>
+                          <option value="floz">Fluid Ounce</option>
+                          <option value="pint">Pint</option>
+                          <option value="quart">Quart</option>
+                          <option value="gallon">Gallon</option>
+                        </optgroup>
+                        <optgroup label="Weight">
+                          <option value="oz">Ounce (oz)</option>
+                          <option value="lb">Pound (lb)</option>
+                          <option value="g">Gram (g)</option>
+                          <option value="kg">Kilogram (kg)</option>
+                        </optgroup>
+                        <optgroup label="Temperature">
+                          <option value="f">Fahrenheit (°F)</option>
+                          <option value="c">Celsius (°C)</option>
+                        </optgroup>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="conversion-arrow">↓</div>
+
+                  <div className="conversion-input-group">
+                    <label className="conversion-label">To:</label>
+                    <div className="conversion-row">
+                      <input
+                        type="number"
+                        className="conversion-input"
+                        placeholder="0"
+                        value={conversionToValue}
+                        readOnly
+                      />
+                      <select
+                        className="conversion-select"
+                        value={conversionToUnit}
+                        onChange={(e) => setConversionToUnit(e.target.value)}
+                      >
+                        <option value="">Select unit</option>
+                        <optgroup label="Volume">
+                          <option value="cup">Cup</option>
+                          <option value="tbsp">Tablespoon</option>
+                          <option value="tsp">Teaspoon</option>
+                          <option value="ml">Milliliter (ml)</option>
+                          <option value="floz">Fluid Ounce</option>
+                          <option value="pint">Pint</option>
+                          <option value="quart">Quart</option>
+                          <option value="gallon">Gallon</option>
+                        </optgroup>
+                        <optgroup label="Weight">
+                          <option value="oz">Ounce (oz)</option>
+                          <option value="lb">Pound (lb)</option>
+                          <option value="g">Gram (g)</option>
+                          <option value="kg">Kilogram (kg)</option>
+                        </optgroup>
+                        <optgroup label="Temperature">
+                          <option value="f">Fahrenheit (°F)</option>
+                          <option value="c">Celsius (°C)</option>
+                        </optgroup>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button
+                    className="conversion-button"
+                    onClick={performConversion}
+                    disabled={!conversionFromValue || !conversionFromUnit || !conversionToUnit}
+                  >
+                    Convert
+                  </button>
+                </div>
+                
+                <div className="conversion-tips">
+                  <h4 className="conversion-tips-title">💡 Quick Tips:</h4>
+                  <ul className="conversion-tips-list">
+                    <li>1 cup = 16 tablespoons</li>
+                    <li>1 tablespoon = 3 teaspoons</li>
+                    <li>1 stick butter = 1/2 cup</li>
+                    <li>1 large egg = ~50g</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+          {/* Center - Main Content */}
+          <div className="flex-1 even-height-panel">
+            {/* Input Form */}
+        {currentView === 'input' && (
+          <div className="max-w-2xl mx-auto">
+                <div className="premium-card">
+                  <div className="card-content">
+                    <h3 className="card-title">
+                      What's Available in Your Kitchen?
+                    </h3>
+                    
+                    {error && (
+                      <div className="error-message">
+                        <strong>Error:</strong> {error}
+          </div>
+        )}
+
+                    <div className="space-y-8">
+                      <div className="input-container">
+                        <label className="input-label">
+                          Available Ingredients *
+                        </label>
+                <textarea
+                  value={ingredients}
+                  onChange={(e) => setIngredients(e.target.value)}
+                          placeholder="Enter your ingredients separated by commas (e.g., chicken breast, broccoli, rice, garlic, olive oil, cheese)"
+                          className="premium-textarea"
+                          rows={4}
+                          required
+                        />
+                      </div>
+                      
+                      <div className="input-container">
+                        <label className="input-label">
+                          Available Kitchen Tools (optional)
+                        </label>
+                        <textarea
+                          value={availableTools}
+                          onChange={(e) => setAvailableTools(e.target.value)}
+                          placeholder="Enter your kitchen tools (e.g., oven, stovetop, air fryer, blender, food processor, grill)"
+                          className="premium-textarea"
+                          rows={3}
+                        />
+                        <p className="input-helper-text">
+                          Leave empty to assume basic kitchen tools (stove, oven, basic cookware)
+                        </p>
+                      </div>
+                      
+                      <div className="input-container">
+                        <label className="input-label">
+                          Desired Style of Food (optional)
+                        </label>
+                        <input
+                          type="text"
+                          value={desiredStyle}
+                          onChange={(e) => setDesiredStyle(e.target.value)}
+                          placeholder="e.g., Mexican, Thai, Italian, Comfort Food, etc."
+                          className="premium-textarea"
+                        />
+                        <p className="input-helper-text">
+                          Suggest a cuisine or style to personalize your recipes
+                        </p>
+                      </div>
+                      
+                      <div className="input-container">
+                        <label className="input-label">Or upload a fridge/ingredient image</label>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                          className="premium-textarea"
+                        />
+                        <p className="input-helper-text">AI will try to detect ingredients from your photo</p>
+                      </div>
+                      
+                <button
+                        onClick={handleSubmit}
+                        disabled={(!ingredients.trim() && !imageBase64) || isLoading}
+                        className="premium-button"
+                      >
+                        {isLoading ? '🤖 AI Chef is Thinking...' : '🚀 Generate AI Recipes'}
+                </button>
+                    </div>
+                    
+                    <p className="signup-offer">
+                      ✨ Powered by artificial intelligence for personalized recipe creation
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Loading State */}
+            {currentView === 'loading' && (
+              <div className="max-w-2xl mx-auto">
+                <div className="loading-container">
+                  <div className="loading-icon">🤖</div>
+                  <h3 className="loading-title">AI Chef is Working...</h3>
+                  <p className="loading-description">
+                    Analyzing your ingredients and generating personalized recipes
+                  </p>
+                  <div className="loading-dots">
+                    <div className="loading-dot loading-dot-1"></div>
+                    <div className="loading-dot loading-dot-2"></div>
+                    <div className="loading-dot loading-dot-3"></div>
+                  </div>
+            </div>
+          </div>
+        )}
+
+            {/* Recipe Results */}
+        {currentView === 'recipes' && (
+              <>
+                <button
+                  className="premium-button mb-8"
+                  onClick={() => setShowTools((prev) => !prev)}
+                >
+                  {showTools ? 'Hide Tools' : 'Show Tools'}
+                </button>
+                <div className="max-w-7xl mx-auto">
+            <button
+              onClick={goBack}
+                    className="back-button mb-12"
+            >
+                    ← Try Different Ingredients
+            </button>
+                  <h2 className="section-title">
+                    🍳 AI-Generated Recipes for You
+            </h2>
+            {recipes.length === 0 ? (
+                    <div className="no-results">
+                      <div className="text-6xl mb-4">🔍</div>
+                      <p className="text-xl text-slate-500">
+                No recipes found. Try adding more ingredients!
+                      </p>
+              </div>
+            ) : (
+                    <div className="recipe-grid">
+                {recipes.map((recipe) => (
+                  <div
+                    key={recipe.id}
+                          className="recipe-card enhanced-recipe-card"
+                    onClick={() => selectRecipe(recipe)}
+                  >
+                          <div className="recipe-icon">👨‍🍳</div>
+                          <h3 className="recipe-name">
+                      {recipe.name}
+                    </h3>
+                          <p className="recipe-description">
+                            {recipe.description}
+                          </p>
+                          <div className="recipe-details">
+                            <div className="recipe-detail-item">
+                              <span className="recipe-detail-label">⏱️ Cooking Time:</span>
+                              <span className="recipe-detail-value">{recipe.cookingTime}</span>
+                            </div>
+                            <div className="recipe-detail-item">
+                              <span className="recipe-detail-label">📊 Difficulty:</span>
+                              <span className={`recipe-detail-value ${getDifficultyColor(recipe.difficulty)}`}>
+                                {getDifficultyEmoji(recipe.difficulty)} {recipe.difficulty}
+                              </span>
+                            </div>
+                            <div className="recipe-detail-item">
+                              <span className="recipe-detail-label">📝 Steps:</span>
+                              <span className="recipe-detail-value">{recipe.steps?.length || 0}</span>
+                            </div>
+                          </div>
+                          {recipe.missingIngredients && recipe.missingIngredients.length > 0 && (
+                            <div className="missing-ingredients">
+                              <p className="missing-ingredients-text">
+                                ⚠️ Missing: {recipe.missingIngredients.join(', ')}
+                              </p>
+                            </div>
+                          )}
+                          <div className="recipe-overlay">
+                            <span className="start-cooking">Start Cooking →</span>
+                          </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+                {/* Show tools below the recipe list if toggled on */}
+                {showTools && (
+                  <div className="flex gap-8 mt-8">
+                    <div className="flex-1 even-height-panel">
+                      <div className="conversion-table-container">
+                        <h3 className="conversion-table-title">
+                          📏 Measurement Converter
+                        </h3>
+                        <p className="conversion-table-subtitle">
+                          Convert between cooking units
+                        </p>
+                        
+                        <div className="conversion-tool">
+                          <div className="conversion-input-group">
+                            <label className="conversion-label">From:</label>
+                            <div className="conversion-row">
+                              <input
+                                type="number"
+                                className="conversion-input"
+                                placeholder="0"
+                                value={conversionFromValue}
+                                onChange={(e) => setConversionFromValue(e.target.value)}
+                              />
+                              <select
+                                className="conversion-select"
+                                value={conversionFromUnit}
+                                onChange={(e) => setConversionFromUnit(e.target.value)}
+                              >
+                                <option value="">Select unit</option>
+                                <optgroup label="Volume">
+                                  <option value="cup">Cup</option>
+                                  <option value="tbsp">Tablespoon</option>
+                                  <option value="tsp">Teaspoon</option>
+                                  <option value="ml">Milliliter (ml)</option>
+                                  <option value="floz">Fluid Ounce</option>
+                                  <option value="pint">Pint</option>
+                                  <option value="quart">Quart</option>
+                                  <option value="gallon">Gallon</option>
+                                </optgroup>
+                                <optgroup label="Weight">
+                                  <option value="oz">Ounce (oz)</option>
+                                  <option value="lb">Pound (lb)</option>
+                                  <option value="g">Gram (g)</option>
+                                  <option value="kg">Kilogram (kg)</option>
+                                </optgroup>
+                                <optgroup label="Temperature">
+                                  <option value="f">Fahrenheit (°F)</option>
+                                  <option value="c">Celsius (°C)</option>
+                                </optgroup>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div className="conversion-arrow">↓</div>
+
+                          <div className="conversion-input-group">
+                            <label className="conversion-label">To:</label>
+                            <div className="conversion-row">
+                              <input
+                                type="number"
+                                className="conversion-input"
+                                placeholder="0"
+                                value={conversionToValue}
+                                readOnly
+                              />
+                              <select
+                                className="conversion-select"
+                                value={conversionToUnit}
+                                onChange={(e) => setConversionToUnit(e.target.value)}
+                              >
+                                <option value="">Select unit</option>
+                                <optgroup label="Volume">
+                                  <option value="cup">Cup</option>
+                                  <option value="tbsp">Tablespoon</option>
+                                  <option value="tsp">Teaspoon</option>
+                                  <option value="ml">Milliliter (ml)</option>
+                                  <option value="floz">Fluid Ounce</option>
+                                  <option value="pint">Pint</option>
+                                  <option value="quart">Quart</option>
+                                  <option value="gallon">Gallon</option>
+                                </optgroup>
+                                <optgroup label="Weight">
+                                  <option value="oz">Ounce (oz)</option>
+                                  <option value="lb">Pound (lb)</option>
+                                  <option value="g">Gram (g)</option>
+                                  <option value="kg">Kilogram (kg)</option>
+                                </optgroup>
+                                <optgroup label="Temperature">
+                                  <option value="f">Fahrenheit (°F)</option>
+                                  <option value="c">Celsius (°C)</option>
+                                </optgroup>
+                              </select>
+                            </div>
+                          </div>
+
+                          <button
+                            className="conversion-button"
+                            onClick={performConversion}
+                            disabled={!conversionFromValue || !conversionFromUnit || !conversionToUnit}
+                          >
+                            Convert
+                          </button>
+                        </div>
+                        
+                        <div className="conversion-tips">
+                          <h4 className="conversion-tips-title">💡 Quick Tips:</h4>
+                          <ul className="conversion-tips-list">
+                            <li>1 cup = 16 tablespoons</li>
+                            <li>1 tablespoon = 3 teaspoons</li>
+                            <li>1 stick butter = 1/2 cup</li>
+                            <li>1 large egg = ~50g</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex-1 even-height-panel">
+                      <div className="safety-table-container">
+                        <h3 className="safety-table-title">
+                          🌡️ Safe Cooking Temperatures
+                        </h3>
+                        <p className="safety-table-subtitle">
+                          Internal temperatures for food safety
+                        </p>
+                        
+                        <div className="safety-table">
+                          <div className="safety-table-header">
+                            <div className="safety-table-cell header">Food Type</div>
+                            <div className="safety-table-cell header">Temperature</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Ground Beef/Pork</div>
+                            <div className="safety-table-cell temp">160°F (71°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Beef Steaks/Roasts</div>
+                            <div className="safety-table-cell temp">145°F (63°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Pork Chops/Roasts</div>
+                            <div className="safety-table-cell temp">145°F (63°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Chicken/Turkey</div>
+                            <div className="safety-table-cell temp">165°F (74°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Duck/Goose</div>
+                            <div className="safety-table-cell temp">165°F (74°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Fish/Seafood</div>
+                            <div className="safety-table-cell temp">145°F (63°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Eggs</div>
+                            <div className="safety-table-cell temp">160°F (71°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Leftovers</div>
+                            <div className="safety-table-cell temp">165°F (74°C)</div>
+                          </div>
+                        </div>
+                        
+                        <div className="safety-tips">
+                          <h4 className="safety-tips-title">💡 Safety Tips:</h4>
+                          <ul className="safety-tips-list">
+                            <li>Use a food thermometer for accuracy</li>
+                            <li>Check the thickest part of the meat</li>
+                            <li>Let meat rest 3-5 minutes after cooking</li>
+                            <li>When in doubt, cook it longer</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Recipe Walkthrough */}
+        {currentView === 'walkthrough' && selectedRecipe && (
+              <>
+                <button
+                  className="premium-button mb-8"
+                  onClick={() => setShowTools((prev) => !prev)}
+                >
+                  {showTools ? 'Hide Tools' : 'Show Tools'}
+                </button>
+                <div className="max-w-5xl mx-auto">
+            <button
+              onClick={goBack}
+                    className="back-button mb-12"
+            >
+              ← Back to Recipes
+            </button>
+                  <div className="walkthrough-container">
+                    <div className="walkthrough-header">
+                      <h2 className="walkthrough-title">{selectedRecipe.name}</h2>
+                      <p className="walkthrough-progress">Step {currentStep + 1} of {selectedRecipe.steps.length}</p>
+                      <div className="walkthrough-meta">
+                        <span>⏱️ {selectedRecipe.cookingTime}</span>
+                        <span>{getDifficultyEmoji(selectedRecipe.difficulty)} {selectedRecipe.difficulty}</span>
+                      </div>
+              </div>
+              
+                    <div className="walkthrough-content">
+                      <div className="chef-icon">👨‍🍳</div>
+                      <p className="current-step">
+                  {selectedRecipe.steps[currentStep]}
+                </p>
+                      
+                      {selectedRecipe.tips && currentStep === selectedRecipe.steps.length - 1 && (
+                        <div className="chef-tips">
+                          <h4 className="chef-tips-title">💡 Chef's Tips:</h4>
+                          <p className="chef-tips-content">{selectedRecipe.tips}</p>
+                        </div>
+                      )}
+              </div>
+              
+                    <div className="walkthrough-controls">
+                <button
+                  onClick={prevStep}
+                  disabled={currentStep === 0}
+                        className="control-button"
+                >
+                  ← Previous
+                </button>
+                
+                      <div className="step-indicators">
+                  {selectedRecipe.steps.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentStep(index)}
+                            className={`step-dot ${index === currentStep ? 'active' : ''}`}
+                    />
+                  ))}
+                </div>
+                
+                <button
+                        onClick={currentStep === selectedRecipe.steps.length - 1 ? () => setCurrentView('finished') : nextStep}
+                        disabled={currentStep === selectedRecipe.steps.length - 1 && currentView === 'finished'}
+                        className="control-button"
+                      >
+                        {currentStep === selectedRecipe.steps.length - 1 ? '✓ Complete' : 'Next →'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {/* Show tools below the walkthrough if toggled on */}
+                {showTools && (
+                  <div className="flex gap-8 mt-8">
+                    <div className="flex-1 even-height-panel">
+                      <div className="conversion-table-container">
+                        <h3 className="conversion-table-title">
+                          📏 Measurement Converter
+                        </h3>
+                        <p className="conversion-table-subtitle">
+                          Convert between cooking units
+                        </p>
+                        
+                        <div className="conversion-tool">
+                          <div className="conversion-input-group">
+                            <label className="conversion-label">From:</label>
+                            <div className="conversion-row">
+                              <input
+                                type="number"
+                                className="conversion-input"
+                                placeholder="0"
+                                value={conversionFromValue}
+                                onChange={(e) => setConversionFromValue(e.target.value)}
+                              />
+                              <select
+                                className="conversion-select"
+                                value={conversionFromUnit}
+                                onChange={(e) => setConversionFromUnit(e.target.value)}
+                              >
+                                <option value="">Select unit</option>
+                                <optgroup label="Volume">
+                                  <option value="cup">Cup</option>
+                                  <option value="tbsp">Tablespoon</option>
+                                  <option value="tsp">Teaspoon</option>
+                                  <option value="ml">Milliliter (ml)</option>
+                                  <option value="floz">Fluid Ounce</option>
+                                  <option value="pint">Pint</option>
+                                  <option value="quart">Quart</option>
+                                  <option value="gallon">Gallon</option>
+                                </optgroup>
+                                <optgroup label="Weight">
+                                  <option value="oz">Ounce (oz)</option>
+                                  <option value="lb">Pound (lb)</option>
+                                  <option value="g">Gram (g)</option>
+                                  <option value="kg">Kilogram (kg)</option>
+                                </optgroup>
+                                <optgroup label="Temperature">
+                                  <option value="f">Fahrenheit (°F)</option>
+                                  <option value="c">Celsius (°C)</option>
+                                </optgroup>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div className="conversion-arrow">↓</div>
+
+                          <div className="conversion-input-group">
+                            <label className="conversion-label">To:</label>
+                            <div className="conversion-row">
+                              <input
+                                type="number"
+                                className="conversion-input"
+                                placeholder="0"
+                                value={conversionToValue}
+                                readOnly
+                              />
+                              <select
+                                className="conversion-select"
+                                value={conversionToUnit}
+                                onChange={(e) => setConversionToUnit(e.target.value)}
+                              >
+                                <option value="">Select unit</option>
+                                <optgroup label="Volume">
+                                  <option value="cup">Cup</option>
+                                  <option value="tbsp">Tablespoon</option>
+                                  <option value="tsp">Teaspoon</option>
+                                  <option value="ml">Milliliter (ml)</option>
+                                  <option value="floz">Fluid Ounce</option>
+                                  <option value="pint">Pint</option>
+                                  <option value="quart">Quart</option>
+                                  <option value="gallon">Gallon</option>
+                                </optgroup>
+                                <optgroup label="Weight">
+                                  <option value="oz">Ounce (oz)</option>
+                                  <option value="lb">Pound (lb)</option>
+                                  <option value="g">Gram (g)</option>
+                                  <option value="kg">Kilogram (kg)</option>
+                                </optgroup>
+                                <optgroup label="Temperature">
+                                  <option value="f">Fahrenheit (°F)</option>
+                                  <option value="c">Celsius (°C)</option>
+                                </optgroup>
+                              </select>
+                            </div>
+                          </div>
+
+                          <button
+                            className="conversion-button"
+                            onClick={performConversion}
+                            disabled={!conversionFromValue || !conversionFromUnit || !conversionToUnit}
+                          >
+                            Convert
+                </button>
+                        </div>
+                        
+                        <div className="conversion-tips">
+                          <h4 className="conversion-tips-title">💡 Quick Tips:</h4>
+                          <ul className="conversion-tips-list">
+                            <li>1 cup = 16 tablespoons</li>
+                            <li>1 tablespoon = 3 teaspoons</li>
+                            <li>1 stick butter = 1/2 cup</li>
+                            <li>1 large egg = ~50g</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex-1 even-height-panel">
+                      <div className="safety-table-container">
+                        <h3 className="safety-table-title">
+                          🌡️ Safe Cooking Temperatures
+                        </h3>
+                        <p className="safety-table-subtitle">
+                          Internal temperatures for food safety
+                        </p>
+                        
+                        <div className="safety-table">
+                          <div className="safety-table-header">
+                            <div className="safety-table-cell header">Food Type</div>
+                            <div className="safety-table-cell header">Temperature</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Ground Beef/Pork</div>
+                            <div className="safety-table-cell temp">160°F (71°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Beef Steaks/Roasts</div>
+                            <div className="safety-table-cell temp">145°F (63°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Pork Chops/Roasts</div>
+                            <div className="safety-table-cell temp">145°F (63°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Chicken/Turkey</div>
+                            <div className="safety-table-cell temp">165°F (74°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Duck/Goose</div>
+                            <div className="safety-table-cell temp">165°F (74°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Fish/Seafood</div>
+                            <div className="safety-table-cell temp">145°F (63°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Eggs</div>
+                            <div className="safety-table-cell temp">160°F (71°C)</div>
+                          </div>
+                          
+                          <div className="safety-table-row">
+                            <div className="safety-table-cell">Leftovers</div>
+                            <div className="safety-table-cell temp">165°F (74°C)</div>
+                          </div>
+                        </div>
+                        
+                        <div className="safety-tips">
+                          <h4 className="safety-tips-title">💡 Safety Tips:</h4>
+                          <ul className="safety-tips-list">
+                            <li>Use a food thermometer for accuracy</li>
+                            <li>Check the thickest part of the meat</li>
+                            <li>Let meat rest 3-5 minutes after cooking</li>
+                            <li>When in doubt, cook it longer</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Finishing Screen */}
+            {currentView === 'finished' && (
+              <FinishingScreen
+                recipeName={selectedRecipe?.name}
+                onRate={handleRateExperience}
+                onHome={() => {
+                  setCurrentView('input');
+                  setIngredients('');
+                  setAvailableTools('');
+                  setRecipes([]);
+                  setSelectedRecipe(null);
+                  setCurrentStep(0);
+                  setDesiredStyle('');
+                  setError('');
+                }}
+              />
+            )}
+          </div>
+          {/* Show safety chart only on input page */}
+          {currentView === 'input' && (
+            <div className="flex-1 even-height-panel">
+              <div className="safety-table-container">
+                <h3 className="safety-table-title">
+                  🌡️ Safe Cooking Temperatures
+                </h3>
+                <p className="safety-table-subtitle">
+                  Internal temperatures for food safety
+                </p>
+                
+                <div className="safety-table">
+                  <div className="safety-table-header">
+                    <div className="safety-table-cell header">Food Type</div>
+                    <div className="safety-table-cell header">Temperature</div>
+                  </div>
+                  
+                  <div className="safety-table-row">
+                    <div className="safety-table-cell">Ground Beef/Pork</div>
+                    <div className="safety-table-cell temp">160°F (71°C)</div>
+                  </div>
+                  
+                  <div className="safety-table-row">
+                    <div className="safety-table-cell">Beef Steaks/Roasts</div>
+                    <div className="safety-table-cell temp">145°F (63°C)</div>
+                  </div>
+                  
+                  <div className="safety-table-row">
+                    <div className="safety-table-cell">Pork Chops/Roasts</div>
+                    <div className="safety-table-cell temp">145°F (63°C)</div>
+                  </div>
+                  
+                  <div className="safety-table-row">
+                    <div className="safety-table-cell">Chicken/Turkey</div>
+                    <div className="safety-table-cell temp">165°F (74°C)</div>
+                  </div>
+                  
+                  <div className="safety-table-row">
+                    <div className="safety-table-cell">Duck/Goose</div>
+                    <div className="safety-table-cell temp">165°F (74°C)</div>
+                  </div>
+                  
+                  <div className="safety-table-row">
+                    <div className="safety-table-cell">Fish/Seafood</div>
+                    <div className="safety-table-cell temp">145°F (63°C)</div>
+                  </div>
+                  
+                  <div className="safety-table-row">
+                    <div className="safety-table-cell">Eggs</div>
+                    <div className="safety-table-cell temp">160°F (71°C)</div>
+                  </div>
+                  
+                  <div className="safety-table-row">
+                    <div className="safety-table-cell">Leftovers</div>
+                    <div className="safety-table-cell temp">165°F (74°C)</div>
+                  </div>
+                </div>
+                
+                <div className="safety-tips">
+                  <h4 className="safety-tips-title">💡 Safety Tips:</h4>
+                  <ul className="safety-tips-list">
+                    <li>Use a food thermometer for accuracy</li>
+                    <li>Check the thickest part of the meat</li>
+                    <li>Let meat rest 3-5 minutes after cooking</li>
+                    <li>When in doubt, cook it longer</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+          </div>
+      </div>
+    </div>
+  )
+}
+
+function FinishingScreen({ recipeName, onRate, onHome }) {
+  const [selected, setSelected] = useState(null);
+  const handleClick = (rating) => {
+    setSelected(rating);
+    if (onRate) onRate(rating);
+  };
+  return (
+    <div>
+      <div className="finishing-screen flex gap-8 mt-8">
+        {/* Left Panel */}
+        <div className="flex-1 flex flex-col items-center justify-center premium-card">
+          <div className="text-7xl mb-6">🎉</div>
+          <h2 className="mb-2 text-green-700">Congrats!</h2>
+          <p className="mb-2 text-slate-700">You've made the meal!</p>
+          {recipeName && <div className="text-2xl font-semibold text-indigo-700 mb-2">{recipeName}</div>}
+        </div>
+        {/* Right Panel */}
+        <div className="flex-1 flex flex-col items-center justify-center premium-card">
+          <h3 className="mb-4 text-pink-700">How was your experience?</h3>
+          <div className="flex gap-6 mb-4">
+            <button className={`rating-btn${selected === 'happy' ? ' selected' : ''}`} onClick={() => handleClick('happy')} aria-label="Happy">
+              😃
+            </button>
+            <button className={`rating-btn${selected === 'neutral' ? ' selected' : ''}`} onClick={() => handleClick('neutral')} aria-label="Neutral">
+              😐
+            </button>
+            <button className={`rating-btn${selected === 'sad' ? ' selected' : ''}`} onClick={() => handleClick('sad')} aria-label="Sad">
+              😞
+            </button>
+          </div>
+          <p className="text-slate-500 text-lg mb-6">Tap an emoji to rate your cook-along!</p>
+        </div>
+      </div>
+      <div className="flex justify-center mt-8">
+        <button
+          className="premium-button"
+          onClick={onHome}
+        >
+          Home
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default App
+
+--------------------------------------------------
+
+*> [src/main.jsx]
+********************
+
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+--------------------------------------------------
+
+
+================================================================================
+
