@@ -18,7 +18,6 @@ function App() {
   const [userRating, setUserRating] = useState(null)
   const [showTools, setShowTools] = useState(false)
   const [desiredStyle, setDesiredStyle] = useState('')
-  const [imageBase64, setImageBase64] = useState(null)
 
   const apiEndpoint = 'https://api.openai.com/v1/chat/completions';
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
@@ -75,6 +74,10 @@ Please suggest 5 practical recipes I can make with these ingredients and tools. 
 7. Step-by-step cooking instructions (numbered, and should be practical and easy to follow, each step description should be concise)
 8. Any tips for variations and safety
 
+**Additionally, suggest 1 more recipe that is local or traditional to Indiana, USA.**
+- This Indiana recipe should follow the same format as above, and can use my available ingredients if possible, but does not have to.
+- **Clearly label this recipe as 'Indiana Recipe' in the name (e.g., 'Indiana Recipe: Pork Tenderloin Sandwich') or add a field 'isIndianaRecipe': true in the JSON.**
+
 **IMPORTANT:**
 - Prioritize recipes that use the most available ingredients and minimize missing ingredients. Only include recipes where most of the ingredients are present.
 - Make the instructions as simple and broken down as possible, suitable for beginners or elderly users.
@@ -95,48 +98,14 @@ Format your response as JSON with this structure:
       "ingredients": ["ingredient1", "ingredient2"],
       "missingIngredients": ["optional missing ingredients"],
       "steps": ["Step 1 instructions", "Step 2 instructions"],
-      "tips": "Optional cooking tips"
+      "tips": "Optional cooking tips",
+      "isIndianaRecipe": true // Only for the Indiana recipe
     }
   ]
 }
 
 Focus on recipes that use most of the available ingredients and are practical to make with the listed tools.`
   }
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImageBase64(reader.result.split(',')[1]); // Remove data:image/...;base64,
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const callOpenAIVision = async (imageBase64) => {
-    const response = await fetch(apiEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-4-vision-preview',
-        messages: [
-          {
-            role: 'user',
-            content: [
-              { type: 'text', text: 'List all the ingredients you see in this fridge. Only list food items, separated by commas.' },
-              { type: 'image_url', image_url: { "url": `data:image/jpeg;base64,${imageBase64}` } }
-            ]
-          }
-        ],
-        max_tokens: 300
-      })
-    });
-    const data = await response.json();
-    return data.choices?.[0]?.message?.content || '';
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -146,17 +115,6 @@ Focus on recipes that use most of the available ingredients and are practical to
     setShowTools(false);
 
     let usedIngredients = ingredients;
-    if (imageBase64) {
-      try {
-        const detected = await callOpenAIVision(imageBase64);
-        usedIngredients = detected;
-        setIngredients(detected); // Optionally show detected ingredients in the textarea
-      } catch (err) {
-        setError('Image analysis failed. Please try again or enter ingredients manually.');
-        setIsLoading(false);
-        return;
-      }
-    }
 
     try {
       const prompt = generateRecipePrompt(usedIngredients, availableTools, desiredStyle);
@@ -495,20 +453,9 @@ Focus on recipes that use most of the available ingredients and are practical to
                         </p>
                       </div>
                       
-                      <div className="input-container">
-                        <label className="input-label">Or upload a fridge/ingredient image</label>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageUpload}
-                          className="premium-textarea"
-                        />
-                        <p className="input-helper-text">AI will try to detect ingredients from your photo</p>
-                      </div>
-                      
                 <button
                         onClick={handleSubmit}
-                        disabled={(!ingredients.trim() && !imageBase64) || isLoading}
+                        disabled={(!ingredients.trim()) || isLoading}
                         className="premium-button"
                       >
                         {isLoading ? '🤖 AI Chef is Thinking...' : '🚀 Generate AI Recipes'}
